@@ -1,5 +1,7 @@
 package com.sqs.project.aktienanzeiger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -8,12 +10,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class StockService {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
 
 
@@ -47,10 +52,48 @@ public class StockService {
                 response.append(inputLine);
             }
             in.close();
-            redisTemplate.opsForValue().set(symbol + timeseries, response.toString());
+            saveStockData(symbol, timeseries, response.toString());
             return response.toString();
         } else {
             throw new RuntimeException("GET request not worked");
         }
     }
+
+    public void saveStockData(String symbol, String timeseries, String data) {
+        // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
+        String key = symbol + ":" + timeseries;
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Konvertieren Sie das Datenobjekt in einen JSON-String
+            String jsonData = objectMapper.writeValueAsString(data);
+
+            // Speichern Sie den JSON-String in Redis
+            redisTemplate.opsForValue().set(key, jsonData);
+
+            long ttl;
+            switch (timeseries){
+                case "daily":
+                    ttl = 60*60*24;
+                    break;
+                case "weekly":
+                    ttl = 60*60*24*7;
+                    break;
+                case "monthly":
+                    ttl = 60*60*24*30;
+                    break;
+                default:
+                    throw new RuntimeException("Invalid time series");
+            }
+            redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteStockData(String symbol, String timeseries) {
+        String key = symbol + ":" + timeseries;
+        redisTemplate.delete(key);
+    }
+
 }
