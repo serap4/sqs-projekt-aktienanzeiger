@@ -1,5 +1,7 @@
 package com.sqs.project.aktienanzeiger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -10,11 +12,18 @@ import java.net.URL;
 @Service
 public class StockService {
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+
+
+
+
     private static final String API_KEY = "UZVKSEY1WHBOGDBL";
     private static final String BASE_URL = "https://www.alphavantage.co/query?";
 
     public String getStockData(String symbol, String timeseries) throws Exception {
-        String url = "";
+        String url;
         if(timeseries.equals("daily")){
             url = BASE_URL + "function=TIME_SERIES_DAILY&symbol=" + symbol +"&outputsize=compact&apikey=" + API_KEY;
         }else if(timeseries.equals("weekly")){
@@ -38,6 +47,7 @@ public class StockService {
                 response.append(inputLine);
             }
             in.close();
+            redisTemplate.opsForValue().set(symbol + timeseries, response.toString());
             return response.toString();
         } else {
             throw new RuntimeException("GET request not worked");
