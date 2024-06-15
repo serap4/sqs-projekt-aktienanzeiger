@@ -15,7 +15,7 @@ public class StockController {
     }
 
     @GetMapping("/stock/{symbol}/{date}")
-    public String getStockData(@PathVariable String symbol,@PathVariable String date) throws Exception {
+    public StockData getStockData(@PathVariable String symbol,@PathVariable String date) throws Exception {
         return stockService.getStockData(symbol, date);
     }
 

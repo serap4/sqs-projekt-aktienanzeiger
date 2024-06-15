@@ -7,7 +7,7 @@ function App() {
     const [selectedOption, setSelectedOption] = useState('IBM');
     const [selectedDate, setSelectedDate] = useState(null);
     const [deleteFeedback, setDeleteFeedback] = useState('');
-    const [stockData, setStockData] = useState(null);
+    const [stockData, setStockData] = useState([]);
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
@@ -20,11 +20,20 @@ function App() {
             return;
         }
         fetch(urlFetch)
-            .then(response => response.json())
+            .then(response => response.text())
             .then(data => {
-                // Verarbeiten Sie die Antwortdaten
-                setStockData(data);
-                console.log(data);
+                const stockDataObject = JSON.parse(data);
+                const stockDataArray = Array.isArray(stockDataObject) ? stockDataObject : [stockDataObject];
+
+                // Überprüfen Sie, ob die ausgewählte Aktie bereits in stockData vorhanden ist
+                const isStockAlreadyAdded = stockData.some(stock => stock.symbol === selectedOption && stock.from === selectedDate);
+
+                // Wenn die Aktie noch nicht hinzugefügt wurde, fügen Sie sie hinzu
+                if (!isStockAlreadyAdded) {
+                    setStockData(prevStockData => [...prevStockData, ...stockDataArray]);
+                }
+
+                console.log(stockDataArray);
             })
             .catch(error => {
                 // Behandeln Sie eventuelle Fehler
@@ -45,12 +54,35 @@ function App() {
             })
             .then(data => {
                 setDeleteFeedback(data); // Speichern Sie die Rückmeldung
+
+                setStockData(prevStockData => prevStockData.filter(stock => !(stock.symbol === selectedOption && stock.from === selectedDate)));
             })
             .catch(error => {
                 console.error('Es gab ein Problem mit Ihrer Fetch-Anforderung:', error);
             });
     };
+    const handleClickClear = () => {
+        // Senden Sie eine Löschanfrage für jede Aktie in stockData
+        stockData.forEach(stock => {
+            const urlDelete = `http://localhost:8080/stock/delete/${stock.symbol}/${stock.from}`;
+            fetch(urlDelete)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerkantwort war nicht ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Löschrückmeldung:', data);
+                })
+                .catch(error => {
+                    console.error('Es gab ein Problem mit Ihrer Fetch-Anforderung:', error);
+                });
+        });
 
+        // Leeren Sie die Tabelle, indem Sie stockData auf ein leeres Array setzen
+        setStockData([]);
+    };
     const urlFetch = `http://localhost:8080/stock/${selectedOption}/${selectedDate}`;
     const urlDelete = `http://localhost:8080/stock/delete/${selectedOption}/${selectedDate}`;
     return (
@@ -82,7 +114,7 @@ function App() {
             </select>
             <button onClick={handleClickShow}> Aktie Anzeigen!</button>
             <button onClick={handleClickDelete}> Aktie aus der Datenbank löschen</button>
-
+            <button onClick={handleClickClear}> Alle Aktien löschen</button>
             <label>{deleteFeedback}</label>
             <div style={{display: "flex", justifyContent: "center", marginTop: "80px"}}>
                 <table style={{
@@ -104,18 +136,18 @@ function App() {
                         <th style={{border: "1px solid black", padding: "10px"}}>Vorbörslich</th>
                         <th style={{border: "1px solid black", padding: "10px"}}>Nachbörslich</th>
                     </tr>
-                    {stockData && (
-                        <tr>
-                            <td>{stockData.symbol}</td>
-                            <td>{stockData.from}</td>
-                            <td>{stockData.open}</td>
-                            <td>{stockData.high}</td>
-                            <td>{stockData.low}</td>
-                            <td>{stockData.close}</td>
-                            <td>{stockData.preMarket}</td>
-                            <td>{stockData.afterHours}</td>
+                    {stockData.map((data, index) => (
+                        <tr key={index}>
+                            <td>{data.symbol}</td>
+                            <td>{data.from}</td>
+                            <td>{data.open}</td>
+                            <td>{data.high}</td>
+                            <td>{data.low}</td>
+                            <td>{data.close}</td>
+                            <td>{data.preMarket}</td>
+                            <td>{data.afterHours}</td>
                         </tr>
-                    )}
+                    ))}
                 </table>
             </div>
         </div>

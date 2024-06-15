@@ -10,8 +10,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -22,15 +20,14 @@ public class StockService {
     private static final String API_KEY = "78ZrTQclvalv24rx04zz1_mOVrAf66Wl";
     private static final String BASE_URL = "https://api.polygon.io/v1/open-close/";
 
-    public String getStockData(String symbol, String date) throws Exception {
+    public StockData getStockData(String symbol, String date) throws Exception {
         // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
         String key = symbol + ":" + date;
 
         // Versuchen Sie, die Daten aus Redis zu holen
-        String data = redisTemplate.opsForValue().get(key);
-
+        String jsonData = redisTemplate.opsForValue().get(key);
         // Wenn die Daten nicht in Redis gespeichert sind, holen Sie sie von der API
-        if (data == null) {
+        if (jsonData == null) {
             String url = BASE_URL + symbol + "/" + date + "?adjusted=true&apiKey=" + API_KEY;
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -44,23 +41,37 @@ public class StockService {
                     response.append(inputLine);
                 }
                 in.close();
-                data = response.toString();
-                saveStockData(symbol, date, data);
+                jsonData = response.toString();
+                saveStockData(symbol, date, jsonData);
             } else {
                 throw new RuntimeException("GET request not worked");
             }
         }
 
-        return data;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Konvertieren Sie den JSON-String in ein StockData-Objekt
+            StockData data = objectMapper.readValue(jsonData, StockData.class);
+            return data;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        // Wenn die Daten nicht in Redis gespeichert sind oder ein Fehler auftritt, geben Sie null zurück
+        return null;
     }
+
     public void saveStockData(String symbol, String date, String data) {
         // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
         String key = symbol + ":" + date;
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // Konvertieren Sie das Datenobjekt in einen JSON-String
-            String jsonData = objectMapper.writeValueAsString(data);
+            // Konvertieren Sie den Antwort-String in ein Java-Objekt
+            StockData stockData = objectMapper.readValue(data, StockData.class);
+
+            // Konvertieren Sie das Java-Objekt in einen JSON-String
+            String jsonData = objectMapper.writeValueAsString(stockData);
 
             // Speichern Sie den JSON-String in Redis
             redisTemplate.opsForValue().set(key, jsonData);
