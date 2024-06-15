@@ -20,15 +20,21 @@ function App() {
             return;
         }
         fetch(urlFetch)
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 500) {
+                        throw new Error('Sie haben zu viele Anfragen an die API gesendet. Bitte versuchen Sie es später erneut.');
+                    }
+                    throw new Error('Netzwerkantwort war nicht ok');
+                }
+                return response.text();
+            })
             .then(data => {
                 const stockDataObject = JSON.parse(data);
                 const stockDataArray = Array.isArray(stockDataObject) ? stockDataObject : [stockDataObject];
 
-                // Überprüfen Sie, ob die ausgewählte Aktie bereits in stockData vorhanden ist
                 const isStockAlreadyAdded = stockData.some(stock => stock.symbol === selectedOption && stock.from === selectedDate);
 
-                // Wenn die Aktie noch nicht hinzugefügt wurde, fügen Sie sie hinzu
                 if (!isStockAlreadyAdded) {
                     setStockData(prevStockData => [...prevStockData, ...stockDataArray]);
                 }
@@ -36,8 +42,8 @@ function App() {
                 console.log(stockDataArray);
             })
             .catch(error => {
-                // Behandeln Sie eventuelle Fehler
-                console.error('Error:', error);
+                // Zeigen Sie die Fehlermeldung an
+                alert(error.message);
             });
     };
     const handleClickDelete = () => {
