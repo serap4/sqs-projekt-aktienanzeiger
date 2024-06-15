@@ -5,74 +5,121 @@ import 'chart.js/auto';
 
 function App() {
     const [selectedOption, setSelectedOption] = useState('IBM');
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [deleteFeedback, setDeleteFeedback] = useState('');
+    const [stockData, setStockData] = useState(null);
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
     const handleSelectChange = (event) => {
         setSelectedOption(event.target.value);
-    };
-    const options = {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true,
-            },
-        },
-    };
-    const fetchData = (timeseries) => {
-        if (selectedOption) {
-            fetch(`http://localhost:8080/stock/${selectedOption}/${timeseries}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Hier verarbeiten Sie die Daten und erstellen das Datenobjekt für Chart.js
-                    const chartData = {
-                        labels: data.map(entry => entry.date), // Angenommen, Ihre Daten haben ein 'date'-Feld
-                        datasets: [{
-                            label: 'Stock Price',
-                            data: data.map(entry => entry.price), // Angenommen, Ihre Daten haben ein 'price'-Feld
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 1
-                        }]
-                    };
-
-                    // Erstellen Sie das Chart.js-Diagramm mit den Daten
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: chartData,
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => console.error('Error:', error));
+    }
+    const handleClickShow = () => {
+        if (!selectedDate || selectedDate === '') {
+            console.log('Bitte wählen Sie ein Datum aus.');
+            return;
         }
+        fetch(urlFetch)
+            .then(response => response.json())
+            .then(data => {
+                // Verarbeiten Sie die Antwortdaten
+                setStockData(data);
+                console.log(data);
+            })
+            .catch(error => {
+                // Behandeln Sie eventuelle Fehler
+                console.error('Error:', error);
+            });
     };
+    const handleClickDelete = () => {
+        if (!selectedDate || selectedDate === '') {
+            console.log('Bitte wählen Sie ein Datum aus.');
+            return;
+        }
+        fetch(urlDelete)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Netzwerkantwort war nicht ok');
+                }
+                return response.text(); // Move response.text() here
+            })
+            .then(data => {
+                setDeleteFeedback(data); // Speichern Sie die Rückmeldung
+            })
+            .catch(error => {
+                console.error('Es gab ein Problem mit Ihrer Fetch-Anforderung:', error);
+            });
+    };
+
+    const urlFetch = `http://localhost:8080/stock/${selectedOption}/${selectedDate}`;
+    const urlDelete = `http://localhost:8080/stock/delete/${selectedOption}/${selectedDate}`;
     return (
-      <div className="App">
-          <h1>Herzlich willkommen bei deinem Aktien Anzeiger</h1>
-          <div className="buttonContainer">
-              <div className="buttonContainer">
-                  <button className="button" onClick={() => fetchData('daily')}>Tägliche Aktie Zeigen</button>
-                  <button className="button" onClick={() => fetchData('weekly')}>Wöchentliche Aktie Zeigen</button>
-                  <button className="button" onClick={() => fetchData('monthly')}>Monatliche Aktie Zeigen</button>
-              </div>
-          </div>
-          <label htmlFor="options">Wähle eine Aktie aus die du anzeigen lassen möchtest:</label>
-          <select id="options" value={selectedOption} onChange={handleSelectChange}>
-              <option value="IBM">IBM</option>
-              <option value="AAPL">Apple</option>
-              <option value="GOOGL">Google</option>
-          </select>
-          {selectedOption && <p>Du hast {selectedOption} ausgewählt.</p>}
-          {data && <Line data={data} options={options} />}
-      </div>
-  );
+        <div className="App">
+            <h1>Herzlich willkommen bei deinem Aktien Anzeiger</h1>
+
+            <label htmlFor="options">Wähle eine Aktie aus die du anzeigen lassen möchtest:</label>
+            <input type="date" id="datePicker" onChange={handleDateChange}/>
+            <select id="options" value={selectedOption} onChange={handleSelectChange}>
+                <option value="IBM">IBM</option>
+                <option value="AAPL">Apple</option>
+                <option value="GOOGL">Google</option>
+                <option value="MSFT">Microsoft</option>
+                <option value="TSLA">Tesla</option>
+                <option value="AMZN">Amazon</option>
+                <option value="PYPL">Paypal Holdings Inc.</option>
+                <option value="INTC">Intel Corporation</option>
+                <option value="JNJ">Johnson & Johnson</option>
+                <option value="V">VISA INC.</option>
+                <option value="NFLX">Netflix Inc.</option>
+                <option value="DIS">Disney Company</option>
+                <option value="PG">Procter & Gamble</option>
+                <option value="KO">Coca-Cola Company</option>
+                <option value="PEP">PepsiCo Inc.</option>
+                <option value="WMT">Walmart Inc.</option>
+                <option value="HD">Home Depot Inc.</option>
+                <option value="NKE">Nike Inc.</option>
+                <option value="MCD">McDonald's Corporation</option>
+            </select>
+            <button onClick={handleClickShow}> Aktie Anzeigen!</button>
+            <button onClick={handleClickDelete}> Aktie aus der Datenbank löschen</button>
+
+            <label>{deleteFeedback}</label>
+            <div style={{display: "flex", justifyContent: "center", marginTop: "80px"}}>
+                <table style={{
+                    width: "90%",
+                    border: "1px solid black",
+                    borderRadius: "5px",
+                    padding: "10px",
+                    borderCollapse: "separate",
+                    borderSpacing: "10px",
+                    backgroundColor: "#f2f2f2"
+                }}>
+                    <tr>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Abkürzung</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Datum</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Eröffnungskurs</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Höchstkurs</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Tiefstkurs</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Schlusskurs</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Vorbörslich</th>
+                        <th style={{border: "1px solid black", padding: "10px"}}>Nachbörslich</th>
+                    </tr>
+                    {stockData && (
+                        <tr>
+                            <td>{stockData.symbol}</td>
+                            <td>{stockData.from}</td>
+                            <td>{stockData.open}</td>
+                            <td>{stockData.high}</td>
+                            <td>{stockData.low}</td>
+                            <td>{stockData.close}</td>
+                            <td>{stockData.preMarket}</td>
+                            <td>{stockData.afterHours}</td>
+                        </tr>
+                    )}
+                </table>
+            </div>
+        </div>
+    );
 }
 
 export default App;

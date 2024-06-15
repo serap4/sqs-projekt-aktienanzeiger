@@ -72,9 +72,15 @@ public class StockService {
         }
     }
 
-    public void deleteStockData(String symbol, String timeseries) {
+    public String deleteStockData(String symbol, String timeseries) {
         String key = symbol + ":" + timeseries;
-        redisTemplate.delete(key);
+        String data = redisTemplate.opsForValue().get(key);
+        if (data != null) {
+            redisTemplate.delete(key);
+        }else {
+            return "Daten nicht gefunden!";
+        }
+        return "Daten erfolgreich gelöscht!";
     }
 
 }
