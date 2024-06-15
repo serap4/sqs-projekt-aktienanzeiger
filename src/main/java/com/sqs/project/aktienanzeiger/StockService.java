@@ -19,29 +19,19 @@ public class StockService {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-    private static final String API_KEY = "J2QR8CPBLMBWGEIZ";
-    private static final String BASE_URL = "https://www.alphavantage.co/query?";
+    private static final String API_KEY = "78ZrTQclvalv24rx04zz1_mOVrAf66Wl";
+    private static final String BASE_URL = "https://api.polygon.io/v1/open-close/";
 
-    public String getStockData(String symbol, String timeseries) throws Exception {
+    public String getStockData(String symbol, String date) throws Exception {
         // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
-        String key = symbol + ":" + timeseries;
+        String key = symbol + ":" + date;
 
         // Versuchen Sie, die Daten aus Redis zu holen
         String data = redisTemplate.opsForValue().get(key);
 
         // Wenn die Daten nicht in Redis gespeichert sind, holen Sie sie von der API
         if (data == null) {
-            String url;
-            if(timeseries.equals("daily")){
-                url = BASE_URL + "function=TIME_SERIES_DAILY&symbol=" + symbol +"&outputsize=compact&apikey=" + API_KEY;
-            }else if(timeseries.equals("weekly")){
-                url = BASE_URL + "function=TIME_SERIES_WEEKLY&symbol=" + symbol + "&apikey=" + API_KEY;
-            }else if(timeseries.equals("monthly")){
-                url = BASE_URL + "function=TIME_SERIES_MONTHLY&symbol=" + symbol + "&apikey=" + API_KEY;
-            }else{
-                throw new RuntimeException("Invalid time series");
-            }
-
+            String url = BASE_URL + symbol + "/" + date + "?adjusted=true&apiKey=" + API_KEY;
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
@@ -55,7 +45,7 @@ public class StockService {
                 }
                 in.close();
                 data = response.toString();
-                saveStockData(symbol, timeseries, data);
+                saveStockData(symbol, date, data);
             } else {
                 throw new RuntimeException("GET request not worked");
             }
@@ -63,17 +53,9 @@ public class StockService {
 
         return data;
     }
-    public String fetchAndSaveStockData(String symbol, String timeseries) throws Exception {
-        String data = getStockData(symbol, timeseries);
-        if (data == null) {
-            data = getStockData(symbol, timeseries);
-            saveStockData(symbol, timeseries, data);
-        }
-        return data;
-    }
-    public void saveStockData(String symbol, String timeseries, String data) {
+    public void saveStockData(String symbol, String date, String data) {
         // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
-        String key = symbol + ":" + timeseries;
+        String key = symbol + ":" + date;
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -83,20 +65,7 @@ public class StockService {
             // Speichern Sie den JSON-String in Redis
             redisTemplate.opsForValue().set(key, jsonData);
 
-            long ttl;
-            switch (timeseries){
-                case "daily":
-                    ttl = 60*60*24;
-                    break;
-                case "weekly":
-                    ttl = 60*60*24*7;
-                    break;
-                case "monthly":
-                    ttl = 60*60*24*30;
-                    break;
-                default:
-                    throw new RuntimeException("Invalid time series");
-            }
+            long ttl = 60*60*24;
             redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

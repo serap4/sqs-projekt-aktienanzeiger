@@ -14,13 +14,14 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @GetMapping("/stock/{symbol}/{timeSeries}")
-    public String getStockData(@PathVariable String symbol,@PathVariable String timeSeries) throws Exception {
-        String key = symbol + ":" + timeSeries;
-        String data = stockService.getStockData(symbol, timeSeries);
-        if (data == null) {
-            data = stockService.fetchAndSaveStockData(symbol, timeSeries);
-        }
-        return data;
+    @GetMapping("/stock/{symbol}/{date}")
+    public String getStockData(@PathVariable String symbol,@PathVariable String date) throws Exception {
+        return stockService.getStockData(symbol, date);
     }
+
+    @GetMapping("/stock/delete/{symbol}/{date}")
+    public void deleteStockData(@PathVariable String symbol,@PathVariable String date) {
+        stockService.deleteStockData(symbol, date);
+    }
+
 }
