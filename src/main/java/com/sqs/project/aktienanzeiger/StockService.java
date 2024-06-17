@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class StockService {
     private static final Logger logger = LoggerFactory.getLogger(StockService.class);
-
+    private static final String ERROR_MESSAGE = "Fehler beim Verarbeiten von JSON-Daten";
     private RedisTemplate<String, String> redisTemplate;
 
     public StockService(RedisTemplate<String, String> redisTemplate) {
@@ -64,8 +64,8 @@ public class StockService {
             return data;
         } catch (JsonProcessingException e) {
 
-            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
-            throw new RuntimeException("Fehler beim Verarbeiten von JSON-Daten", e);
+            logger.error(ERROR_MESSAGE, e);
+            throw new RuntimeException(ERROR_MESSAGE, e);
         }
     }
 
@@ -87,7 +87,7 @@ public class StockService {
             int ttl = 86400;
             redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
         } catch (JsonProcessingException e) {
-            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
+            logger.error(ERROR_MESSAGE, e);
         }
     }
 
