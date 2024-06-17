@@ -3,9 +3,11 @@ package com.sqs.project.aktienanzeiger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -14,10 +16,14 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class StockService {
+    private static final Logger logger = LoggerFactory.getLogger(StockService.class);
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-    private static final String API_KEY = "78ZrTQclvalv24rx04zz1_mOVrAf66Wl";
+
+    @Value("${polygon.api.key}")
+    private String API_KEY;
+
     private static final String BASE_URL = "https://api.polygon.io/v1/open-close/";
 
     public StockData getStockData(String symbol, String date) throws Exception {
@@ -54,7 +60,7 @@ public class StockService {
             StockData data = objectMapper.readValue(jsonData, StockData.class);
             return data;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
         }
 
         // Wenn die Daten nicht in Redis gespeichert sind oder ein Fehler auftritt, geben Sie null zurück
@@ -79,7 +85,7 @@ public class StockService {
             long ttl = 60*60*24;
             redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
         }
     }
 
