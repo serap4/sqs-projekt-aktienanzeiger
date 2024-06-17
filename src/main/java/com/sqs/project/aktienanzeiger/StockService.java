@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -28,7 +29,7 @@ public class StockService {
 
     private static final String BASE_URL = "https://api.polygon.io/v1/open-close/";
 
-    public StockData getStockData(String symbol, String date) throws Exception {
+    public StockData getStockData(String symbol, String date) throws IOException {
         // Erstellen Sie einen eindeutigen Schlüssel für Ihre Daten
         String key = symbol + ":" + date;
 
@@ -52,7 +53,7 @@ public class StockService {
                 jsonData = response.toString();
                 saveStockData(symbol, date, jsonData);
             } else {
-                throw new RuntimeException("GET request not worked");
+                throw new IOException("GET request not worked");
             }
         }
 
@@ -62,11 +63,10 @@ public class StockService {
             StockData data = objectMapper.readValue(jsonData, StockData.class);
             return data;
         } catch (JsonProcessingException e) {
-            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
-        }
 
-        // Wenn die Daten nicht in Redis gespeichert sind oder ein Fehler auftritt, geben Sie null zurück
-        return null;
+            logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
+            throw new RuntimeException("Fehler beim Verarbeiten von JSON-Daten", e);
+        }
     }
 
     public void saveStockData(String symbol, String date, String data) {
