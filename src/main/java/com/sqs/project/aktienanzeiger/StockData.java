@@ -12,10 +12,6 @@ public class StockData {
     private double afterHours;
     private double preMarket;
 
-    // Standardkonstruktor
-    public StockData() {
-    }
-
     // Getter und Setter für jede Eigenschaft
 
     public String getStatus() {
