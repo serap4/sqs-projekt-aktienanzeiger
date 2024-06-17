@@ -59,8 +59,8 @@ public class StockService {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             // Konvertieren Sie den JSON-String in ein StockData-Objekt
-            StockData data = objectMapper.readValue(jsonData, StockData.class);
-            return data;
+         return objectMapper.readValue(jsonData, StockData.class);
+
         } catch (JsonProcessingException e) {
             logger.error(ERROR_MESSAGE, e);
             throw new IOException(ERROR_MESSAGE, e);
