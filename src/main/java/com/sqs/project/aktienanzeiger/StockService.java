@@ -18,11 +18,13 @@ import java.util.concurrent.TimeUnit;
 public class StockService {
     private static final Logger logger = LoggerFactory.getLogger(StockService.class);
 
-    @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    public StockService(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
     @Value("${polygon.api.key}")
-    private String API_KEY;
+    private String apiKey;
 
     private static final String BASE_URL = "https://api.polygon.io/v1/open-close/";
 
@@ -34,7 +36,7 @@ public class StockService {
         String jsonData = redisTemplate.opsForValue().get(key);
         // Wenn die Daten nicht in Redis gespeichert sind, holen Sie sie von der API
         if (jsonData == null) {
-            String url = BASE_URL + symbol + "/" + date + "?adjusted=true&apiKey=" + API_KEY;
+            String url = BASE_URL + symbol + "/" + date + "?adjusted=true&apiKey=" + apiKey;
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
@@ -82,7 +84,7 @@ public class StockService {
             // Speichern Sie den JSON-String in Redis
             redisTemplate.opsForValue().set(key, jsonData);
 
-            long ttl = 60*60*24;
+            int ttl = 86400;
             redisTemplate.expire(key, ttl, TimeUnit.SECONDS);
         } catch (JsonProcessingException e) {
             logger.error("Fehler beim Verarbeiten von JSON-Daten", e);
