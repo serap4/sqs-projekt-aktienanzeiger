@@ -45,7 +45,7 @@ public class StockService {
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String inputLine;
-                StringBuffer response = new StringBuffer();
+                StringBuilder response = new StringBuilder();
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -63,9 +63,8 @@ public class StockService {
             StockData data = objectMapper.readValue(jsonData, StockData.class);
             return data;
         } catch (JsonProcessingException e) {
-
             logger.error(ERROR_MESSAGE, e);
-            throw new RuntimeException(ERROR_MESSAGE, e);
+            throw new IOException(ERROR_MESSAGE, e);
         }
     }
 
