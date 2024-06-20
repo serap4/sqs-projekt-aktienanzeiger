@@ -13,6 +13,12 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Stakeholder
 
+| Rolle                    | Kontakt                                | Erwartungshaltung                                   |
+| ------------------------ | ---------------------------------------| --------------------------------------------------- |
+| Prüfer                   | Mario-Leander Reimer (mario-leander.reimer@th-rosenheim.de)  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
+| Prüfer                   | Gerd Beneken (gerd.beneken@th-rosenheim.de)                  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
+| Stundent (Entwickler)    | Serap Kaya (serap.kaya@stud.th-rosenheim.de) | Es wird erwartet, dass die Architektur geplant, der Code entwickelt, die Tests geplant und durchgeführt sowie die Dokumentation erstellt wird. | 
+
 ## Randbedingungen
 
 ### Technische Randbedingungen
