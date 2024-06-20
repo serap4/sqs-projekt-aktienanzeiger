@@ -24,21 +24,21 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 ### Technische Randbedingungen
 -	**Plattformanforderungen:**
 
-Windows, Linux oder macOS
+ 	Windows, Linux oder macOS
 
 - **Hardwareanforderung:**
 
-PC oder Laptop
+  PC oder Laptop
 
 
 - **Software- und Framework-Abhängigkeiten:**
 
-Java 17, Spring Boot 3.3.0, Maven 3.9.8, Redis 0.7.3, React 18.3.1
+  Java 17, Spring Boot 3.3.0, Maven 3.9.8, Redis 0.7.3, React 18.3.1
 
 
 - **Integrationsanforderungen:**
 
-Redis, Polygon.io API  
+  Redis, Polygon.io API  
 
 
 ### Organisatorische Randbedingungen
