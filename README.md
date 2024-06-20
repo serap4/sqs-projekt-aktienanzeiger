@@ -1,1 +1,1 @@
-#Aktienanzeiger
+# Aktienanzeiger
