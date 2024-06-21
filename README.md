@@ -77,6 +77,7 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 ## Kontextabgrenzung
 
 ### Fachlicher Kontext
+![Fachlicher Kontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Fachlicher%20Kontext.PNG)
 
 ### Technischer- oder Verteilungskontext
 
