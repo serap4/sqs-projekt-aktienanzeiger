@@ -51,7 +51,28 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Organisatorische Randbedingungen
 
-### Konventionen
+- **Zeitvorgabe:**
+
+  Abgabetermin ist der 23.06.2024
+
+- **Budget:**
+
+  Es besteht kein finanzielles Interesse.
+
+- **Kommunikationsweg:**
+  
+  Wöchentliche Besprechung: Jeden Montag während der Vorlesung.
+
+  Alternativ per E-Mail an: mario-leander.reimer@th-rosenheim.de.
+
+- **Abnahmekriterien:**
+
+  Erfüllung der Aufgabenstellung.
+
+- **Dokumentationsanforderungen:**
+
+  Verwendung des arc42 Templates für die Projektdokumentation.
+
 
 ## Kontextabgrenzung
 
