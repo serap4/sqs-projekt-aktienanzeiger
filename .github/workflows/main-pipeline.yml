@@ -55,8 +55,11 @@ jobs:
           run: |
             cd frontend
             npm install
-        - name: Run React Frontend 
-            npm run build
+
+        - name: Run React Frontend
+          run: |
+              cd frontend
+              npm run build
         
         - name: Run frontend tests
           run: |
