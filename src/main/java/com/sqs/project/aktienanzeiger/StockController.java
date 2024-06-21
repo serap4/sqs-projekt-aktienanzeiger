@@ -22,7 +22,7 @@ public class StockController {
     }
 
     @GetMapping("/stock/delete/{symbol}/{date}")
-    public String deleteStockData(@PathVariable String symbol,@PathVariable String date){
+    public String deleteStockData(@PathVariable String symbol,@PathVariable String date) {
         return stockService.deleteStockData(symbol, date);
     }
 

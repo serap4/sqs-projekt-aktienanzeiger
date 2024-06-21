@@ -100,4 +100,8 @@ public class StockService {
         return "Daten erfolgreich gelöscht!";
     }
 
+    protected HttpURLConnection openConnection(String url) throws IOException {
+        return (HttpURLConnection) new URL(url).openConnection();
+    }
+
 }
