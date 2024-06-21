@@ -113,7 +113,8 @@ Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesen
 
 ### Whitebox Gesamtsystem
 #### Übersichtsdiagramm
-![Whitebox Gesamtsystem](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Whitebox%20Gesamtbox.PNG)
+
+![Whitebox Gesamtsystem](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Whitbox%20Gesamtsystem.PNG)
 
 **Begründung:**
 #### Erhaltene Bausteine
