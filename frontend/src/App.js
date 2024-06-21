@@ -95,7 +95,7 @@ function App() {
         <div className="App">
             <h1>Herzlich willkommen bei deinem Aktien Anzeiger</h1>
 
-            <label htmlFor="options">Wähle eine Aktie aus die du anzeigen lassen möchtest:</label>
+            <label htmlFor="datePicker">Wähle eine Aktie aus die du anzeigen lassen möchtest:</label>
             <input type="date" id="datePicker" onChange={handleDateChange}/>
             <select id="options" value={selectedOption} onChange={handleSelectChange}>
                 <option value="IBM">IBM</option>
