@@ -9,13 +9,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -97,9 +94,6 @@ public class StockServiceTest {
 
     @Test
     public void testApiConnection() throws IOException {
-        String symbol = "AAPL";
-        String date = "2023-01-09";
-        String apiKey = "78ZrTQclvalv24rx04zz1_mOVrAf66Wl";
         String url = "https://api.polygon.io/v1/open-close/AAPL/2023-01-09?adjusted=true&apiKey=78ZrTQclvalv24rx04zz1_mOVrAf66Wl";
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
         connection.setRequestMethod("GET");
@@ -136,7 +130,7 @@ public class StockServiceTest {
 
 
     @Test
-    public void testSaveStockDataToRedis() throws IOException {
+    public void testSaveStockDataToRedis(){
         String symbol = "AAPL";
         String date = "2023-01-09";
         String data = "{\"status\":\"OK\",\"from\":\"2023-01-09\",\"symbol\":\"AAPL\",\"open\":130.465,\"high\":133.41,\"low\":129.89,\"close\":130.15,\"volume\":7.0790813E7,\"afterHours\":129.85,\"preMarket\":129.6}";
