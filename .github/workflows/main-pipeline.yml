@@ -34,17 +34,17 @@ jobs:
       - name: Build Backend
         run: |
           cd backend
-          ./mvnw clean install
+          mvn clean install
           
       - name: Test Backend
         run: |
           cd backend
-          ./mvnw test
+          mvn test
           
       - name: Run Backend
         run: |
           cd backend
-          ./mvnw spring-boot:run
+          mvn spring-boot:run
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
