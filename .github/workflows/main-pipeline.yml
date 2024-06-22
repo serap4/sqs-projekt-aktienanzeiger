@@ -8,6 +8,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   backend-frontend-build-test-run:
@@ -28,7 +31,6 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-
       - name: Build Backend
         run: |
           cd backend
@@ -36,11 +38,12 @@ jobs:
           
       - name: Test Backend
         run: |
-          cd Backend
+          cd backend
           ./mvnw test
           
       - name: Run Backend
-        run: 
+        run: |
+          cd backend
           ./mvnw spring-boot:run
 
       - name: Set up Node.js
@@ -50,15 +53,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-            cd frontend
-            npm install
+          cd frontend
+          npm install
+
       - name: Run React Frontend
         run: |
-            cd frontend
-            npm run build
+          cd frontend
+          npm run build
+
       - name: Run frontend tests
         run: |
-            cd frontend
-            npm test
+          cd frontend
+          npm test
         env:
-            CI: true
+          CI: true
