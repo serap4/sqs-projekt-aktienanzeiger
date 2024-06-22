@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  build-test-run-backend:
+  backend-frontend-build-test-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
           cache: 'maven'
 
       - name: Verify Java version
@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Backend
         run: |
-          cd Backend
+          cd backend
           ./mvnw clean install
           
       - name: Test Backend
@@ -42,34 +42,23 @@ jobs:
       - name: Run Backend
         run: 
           ./mvnw spring-boot:run
-          
-  build-test-run-frontend:
-    runs-on: ubuntu-latest
-    steps: 
-        - name: Set up Node.js
-          uses: actions/setup-node@v2
-          with:
-            node-version: '18'
 
-        - name: Install dependencies
-          run: |
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
             cd frontend
             npm install
-
-        - name: Run React Frontend
-          run: |
-              cd frontend
-              npm run build
-        
-        - name: Run frontend tests
-          run: |
+      - name: Run React Frontend
+        run: |
+            cd frontend
+            npm run build
+      - name: Run frontend tests
+        run: |
             cd frontend
             npm test
-          env:
+        env:
             CI: true
-
-        - name: Collect frontend coverage
-          run: |
-            cd frontend
-            npm run test -- --coverage
-
