@@ -7,7 +7,10 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   backend-frontend-build-test-run:
@@ -32,20 +35,20 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-
       - name: Build Backend
         run: |
           cd backend
-          ./mvnw clean install
+          mvn clean install
           
       - name: Test Backend
         run: |
-          cd Backend
-          ./mvnw test
+          cd backend
+          mvn test
           
       - name: Run Backend
-        run: 
-          ./mvnw spring-boot:run
+        run: |
+          cd backend
+          mvn spring-boot:run
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -54,15 +57,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-            cd frontend
-            npm install
+          cd frontend
+          npm install
+
       - name: Run React Frontend
         run: |
-            cd frontend
-            npm run build
+          cd frontend
+          npm run build
+
       - name: Run frontend tests
         run: |
-            cd frontend
-            npm test
+          cd frontend
+          npm test
         env:
-            CI: true
+          CI: true
