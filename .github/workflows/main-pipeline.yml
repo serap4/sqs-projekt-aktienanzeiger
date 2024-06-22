@@ -13,7 +13,7 @@ on:
       - master
 
 jobs:
-  backend-frontend-build-test-run:
+  backend-frontend-build-test:
     runs-on: ubuntu-latest
     services:
       redis:
@@ -44,11 +44,6 @@ jobs:
         run: |
           cd backend
           mvn test
-          
-      - name: Run Backend
-        run: |
-          cd backend
-          mvn spring-boot:run
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -59,11 +54,6 @@ jobs:
         run: |
           cd frontend
           npm install
-
-      - name: Run React Frontend
-        run: |
-          cd frontend
-          npm run build
 
       - name: Run frontend tests
         run: |
