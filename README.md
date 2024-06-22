@@ -78,6 +78,13 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Fachlicher Kontext
 ![Fachlicher Kontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Fachlicher%20Kontext.PNG)
+Kommunikationsbeziehung	Eingabe	Ausgabe
+| Kommunikationsbeziehung                    | Eingabe                                | Ausgabe                                   |
+| ------------------------------- | ---------------------------------------| --------------------------------------------------- |
+| User --> Aktienanzeiger                 | Aktien und Datum auswählen| - | 
+| Aktienanzeiger --> Polygon API                 | Suchanfrage mit Aktien und Datum | - |
+| Polygon API --> Aktienanzeiger                | - | Übermittlung der Aktiendaten für dieses Datum|
+| Aktienanzeiger --> User                 | -  | Darstellung der Aktieninformationen |
 
 ### Technischer- oder Verteilungskontext
 
