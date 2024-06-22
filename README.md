@@ -78,7 +78,7 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Fachlicher Kontext
 ![Fachlicher Kontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Fachlicher%20Kontext.PNG)
-Kommunikationsbeziehung	Eingabe	Ausgabe
+
 | Kommunikationsbeziehung                    | Eingabe                                | Ausgabe                                   |
 | ------------------------------- | ---------------------------------------| --------------------------------------------------- |
 | User --> Aktienanzeiger                 | Aktien und Datum auswählen| - | 
@@ -166,3 +166,36 @@ Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesen
 ## Risiken und technische Schulden
 
 ## Glossar
+| Begriff                         | Beschreibung                           | 
+| ------------------------------- | ---------------------------------------|
+| Spring Boot                     |                                        |
+| React                           |                                        |
+| Redis                           |                                        |
+| GitHub Actions                  |                                        |
+| SonarCloud                      |                                        |
+| CI/CD-Pipeline                  |                                        |
+| Caching                         |                                        |
+| JUnit                           |                                        |
+| Artillery                       |                                        |
+| ArchUnit                        |                                        |
+| Playwright                      |                                        |
+| Docker                          |                                        |
+| Docker-Compose                  |                                        |
+| Unit-Test                       |                                        |
+| Integrationstest                |                                        |
+| End-to-End-Test                 |                                        |
+| Statische Code Analyse          |                                        |
+|                                 |                                        |
+|                                 |                                        |
+|                                 |                                        |
+|                                 |                                        |
+|                                 |                                        |
+|                                 |                                        |
+|                                 |                                        |
+
+
+
+
+
+
+
