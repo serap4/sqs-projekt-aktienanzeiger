@@ -23,7 +23,7 @@ function App() {
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 500) {
-                        throw new Error('Sie haben zu viele Anfragen an die API gesendet. Bitte versuchen Sie es später erneut.');
+                        throw new Error('Sie haben zu viele Anfragen an die API gesendet oder die Aktie existiert für den gewünschten Tag nicht. Bitte versuchen Sie es später erneut.');
                     }
                     throw new Error('Netzwerkantwort war nicht ok');
                 }
@@ -96,7 +96,7 @@ function App() {
             <h1>Herzlich willkommen bei deinem Aktien Anzeiger</h1>
 
             <label htmlFor="datePicker">Wähle eine Aktie aus die du anzeigen lassen möchtest:</label>
-            <input type="date" id="datePicker" onChange={handleDateChange}/>
+            <input type="date" id="datePicker" aria-label="Wähle ein Datum" onChange={handleDateChange}/>
             <select id="options" value={selectedOption} onChange={handleSelectChange}>
                 <option value="IBM">IBM</option>
                 <option value="AAPL">Apple</option>
@@ -132,6 +132,7 @@ function App() {
                     borderSpacing: "10px",
                     backgroundColor: "#f2f2f2"
                 }}>
+                    <thead>
                     <tr>
                         <th style={{border: "1px solid black", padding: "10px"}}>Abkürzung</th>
                         <th style={{border: "1px solid black", padding: "10px"}}>Datum</th>
@@ -142,6 +143,8 @@ function App() {
                         <th style={{border: "1px solid black", padding: "10px"}}>Vorbörslich</th>
                         <th style={{border: "1px solid black", padding: "10px"}}>Nachbörslich</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     {stockData.map((data, index) => (
                         <tr key={index}>
                             <td>{data.symbol}</td>
@@ -154,10 +157,12 @@ function App() {
                             <td>{data.afterHours}</td>
                         </tr>
                     ))}
+                    </tbody>
                 </table>
             </div>
         </div>
     );
+
 }
 
 export default App;

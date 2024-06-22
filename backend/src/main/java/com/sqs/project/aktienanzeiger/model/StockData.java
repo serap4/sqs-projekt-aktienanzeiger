@@ -1,4 +1,4 @@
-package com.sqs.project.aktienanzeiger;
+package com.sqs.project.aktienanzeiger.model;
 
 public class StockData {
     private String status;

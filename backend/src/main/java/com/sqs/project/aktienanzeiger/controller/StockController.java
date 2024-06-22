@@ -1,9 +1,10 @@
-package com.sqs.project.aktienanzeiger;
+package com.sqs.project.aktienanzeiger.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.sqs.project.aktienanzeiger.service.StockService;
+import com.sqs.project.aktienanzeiger.model.StockData;
 import java.io.IOException;
 
 @RestController
