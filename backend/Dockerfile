@@ -11,7 +11,7 @@ WORKDIR /app
 COPY pom.xml ./
 
 # Installiere Maven Abhängigkeiten und gehe offline
-RUN mvn dependency:go-offline
+# RUN mvn dependency:go-offline
 
 # Kopiere den restlichen Code
 COPY src ./src

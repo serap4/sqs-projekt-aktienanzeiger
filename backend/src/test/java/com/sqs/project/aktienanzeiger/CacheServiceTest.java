@@ -1,5 +1,6 @@
-package com.sqs.project.aktienanzeiger.service;
+package com.sqs.project.aktienanzeiger;
 
+import com.sqs.project.aktienanzeiger.service.CacheService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

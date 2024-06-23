@@ -8,7 +8,7 @@ import com.sqs.project.aktienanzeiger.model.StockData;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:80", "http://localhost"})
 public class StockController {
 
     private final StockService stockService;
