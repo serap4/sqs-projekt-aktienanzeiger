@@ -361,7 +361,50 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ### Infrastruktur Ebene 1
 
-### Infrastruktur Ebene 2
+## Docker-Compose-Datei
+
+In diesem Projekt genutzte Docker-Compose-Datei: [Docker-Compose-File](link-zur-docker-compose-file)
+
+Die Images für das Front- und Backend werden aus der GitHub-Registry des Projektes gezogen.
+
+<table>
+  <tr>
+    <td>
+      <pre>
++-----------------------+
+|        redis          |
+|   image: redis:latest |
+|   Port: 6379          |
+|                       |
+|                       |
++-----------------------+
+      </pre>
+    </td>
+    <td>
+      <pre>
++-----------------------+
+|       backend         |
+|                       |
+|    Ports: 8080        |
+|    Depends on: redis  |
++-----------------------+
+      </pre>
+    </td>
+    <td>
+      <pre>
++-----------------------+
+|       frontend        |
+|                       |
+|    Port: 4200         |
+|    Depends on: backend|
+                 redis  |
++-----------------------+
+      </pre>
+    </td>
+  </tr>
+</table>
+
+
 
 ## Querschnittliche Konzepte
 
