@@ -215,7 +215,7 @@ jobs:
 
         - name: Build playwright
           run: |
-            cd tests
+            cd end2end
             npm ci
         - name: Install Browsers
           run:
@@ -223,6 +223,6 @@ jobs:
 
         - name: Run Playwright Tests
           run: |
+            cd end2end
             cd tests
-            cd e2e
             npx playwright test --config playwright.config.js
