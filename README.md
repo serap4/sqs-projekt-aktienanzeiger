@@ -383,15 +383,20 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 ### Infrastruktur 
 ![Infrastruktur](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Infrastruktur.PNG)
 
-**Begründung**: Das System läuft in einer Container-Umgebung, die du++rch eine Docker-Compose-Datei verwaltet wird. Dies gewährleistet einfache Skalierbarkeit, Portabilität und Konsistenz. Durch Docker-Container werden die einzelnen Komponenten des Systems isoliert und verwaltet.
+**Begründung**: Das System läuft in einer Container-Umgebung betrieben, die durch eine Docker-Compose-Datei verwaltet wird. Diese Konfiguration ermöglicht eine einfache Skalierbarkeit, Portabilität und Konsistenz der Anwendung. Durch den Einsatz von Docker-Containern werden die einzelnen Komponenten des Systems isoliert und effizient verwaltet. Diese Isolierung sorgt dafür, dass jede Komponente unabhängig von den anderen läuft, was die Wartung und Aktualisierung erleichtert und gleichzeitig mögliche Konflikte zwischen Abhängigkeiten minimiert. Docker-Compose vereinfacht zudem das Orchestrieren und Starten mehrerer Container, was die Entwicklungs- und Deployment-Prozesse optimiert.
 
-**Isolation:** Jeder Dienst ist in einem dedizierten Container ausgeführt, was zu einer verstärkten Isolierung führt und damit die Stabilität sowie Sicherheit des Systems erhöht.
+**Isolierung:**
+Durch die Verwendung von Docker-Containern werden die verschiedenen Komponenten des Systems - Frontend, Backend und Datenbank - voneinander isoliert. Dies bedeutet, dass jede Komponente in ihrer eigenen Umgebung läuft, was Konflikte zwischen Abhängigkeiten verhindert und die Wartung erleichtert. Der Zugriff auf die Datenbank und die API erfolgt über REST-Schnittstellen, was die Entkopplung der Komponenten weiter unterstützt.
 
-**Portabilität:** Dank Docker läuft die Anwendung konsistent in verschiedenen Umgebungen, was die Portabilität zwischen Entwicklungs-, Test- und Produktionsumgebungen verbessert.
+**Portabilität:**
+Docker-Container sorgen dafür, dass die Anwendung auf verschiedenen Plattformen und Umgebungen konsistent läuft. Die Docker-Compose-Datei definiert die Konfiguration der Container, sodass das gesamte System leicht auf andere Maschinen übertragen und dort ohne Anpassungen gestartet werden kann.
 
-**Skalierbarkeit:** Docker-Container ermöglichen eine einfache horizontale Skalierung des Systems durch das Hinzufügen zusätzlicher Container nach Bedarf.
+**Skalierbarkeit:**
+Die Container-basierte Architektur ermöglicht eine einfache Skalierbarkeit des Systems. Bei steigender Last können zusätzliche Instanzen des Frontend- oder Backend-Containers gestartet werden, um die Anfragen zu verteilen und die Performance zu erhalten. Die Datenbank kann ebenfalls horizontal skaliert werden, um eine höhere Datenverarbeitungsleistung zu erreichen.
 
-**Wiederholbarkeit:** Docker Compose ermöglicht eine einfache und reproduzierbare Bereitstellung der gesamten Systemumgebung.
+**Wiederholbarkeit:**
+Durch die Verwendung von Docker und Docker-Compose ist die Wiederholbarkeit der Entwicklungs-, Test- und Produktionsumgebungen sichergestellt. Jede Umgebung kann anhand der gleichen Konfiguration und Container-Images reproduziert werden, wodurch die Konsistenz und Zuverlässigkeit der Bereitstellung verbessert wird. Dies erleichtert auch das Debugging und die Fehlersuche, da jede Umgebung identisch ist.
+
 
 ## Docker-Compose-Datei
 
