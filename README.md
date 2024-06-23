@@ -272,32 +272,27 @@ Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funk
 ## Glossar
 | Begriff                         | Beschreibung                           | 
 | ------------------------------- | ---------------------------------------|
-| Spring Boot                     |                                        |
-| React                           |                                        |
-| Redis                           |                                        |
-| GitHub Actions                  |                                        |
-| GitHub                          |                                        |
-| SonarCloud                      |                                        |
-| CI/CD-Pipeline                  |                                        |
-| Caching                         |                                        |
-| JUnit                           |                                        |
-| Artillery                       |                                        |
-| ArchUnit                        |                                        |
-| Playwright                      |                                        |
-| Docker                          |                                        |
-| Docker-Compose                  |                                        |
-| Unit-Test                       |                                        |
-| Integrationstest                |                                        |
-| End-to-End-Test                 |                                        |
-| Statische Code Analyse          |                                        |
-|                                 |                                        |
-|                                 |                                        |
-|                                 |                                        |
-|                                 |                                        |
-|                                 |                                        |
-|                                 |                                        |
-|                                 |                                        |
-
+| Spring Boot                     | Ein Framework zur Erstellung von Microservices und autonomen Anwendungen in Java, das eine einfache Konfiguration und schnelles Setup ermöglicht.|
+| React                           | Eine JavaScript-Bibliothek zur Entwicklung von Benutzeroberflächen, die durch komponentenbasierte Architektur und hohe Performance besticht. |
+| Redis                           | Eine In-Memory-Datenbank, die hohe Geschwindigkeit und Skalierbarkeit für Caching und schnelle Datenzugriffe bietet. |
+| GitHub Actions                  | Ein CI/CD-Dienst, der es ermöglicht, automatisierte Workflows für Builds, Tests und Deployments direkt in GitHub zu erstellen und auszuführen.|
+| GitHub                          | Eine Plattform zur Versionskontrolle und Zusammenarbeit, die das Verwalten von Code-Repositories und die Nachverfolgung von Änderungen erleichtert.|
+| SonarCloud                      | Ein Tool zur statischen Codeanalyse, das Codequalität, Sicherheitslücken und Code-Smells erkennt und Bericht erstattet.|
+| CI/CD-Pipeline                  | Ein automatisierter Workflow, der Continuous Integration und Continuous Deployment unterstützt, um Code-Änderungen schnell und zuverlässig bereitzustellen.|
+| Caching                         |   Ein Mechanismus zur Zwischenspeicherung von Daten, um die Zugriffszeiten zu verkürzen und die Leistung zu verbessern. |
+| JUnit                           | Ein Framework zum Erstellen und Ausführen von Unit-Tests in Java, das die Überprüfung der einzelnen Komponenten einer Anwendung ermöglicht.|
+| Artillery                       | Ein Test-Tool zur Durchführung von Last- und Performance-Tests, um die Belastbarkeit und Leistung einer Anwendung zu überprüfen.|
+| ArchUnit                        | Ein Test-Framework zur Überprüfung der Einhaltung von Architekturregeln in Java-Code.|
+| Playwright                      | Ein End-to-End-Testframework, das browserübergreifende Tests ermöglicht, um die Funktionalität von Webanwendungen sicherzustellen. |
+| Docker                          | Eine Plattform zur Containerisierung von Anwendungen, die eine konsistente Laufzeitumgebung bietet und das Deployment vereinfacht. |
+| Docker-Compose                  | Ein Tool zum Definieren und Verwalten von Multi-Container-Docker-Anwendungen, das eine einfache Orchestrierung der Services ermöglicht.|
+| Unit-Test                       | Ein Test, der die kleinsten Testbaren Teile einer Anwendung, wie einzelne Funktionen oder Methoden, isoliert prüft.|
+| Integrationstest                | Ein Test, der das Zusammenspiel mehrerer Komponenten einer Anwendung überprüft, um sicherzustellen, dass sie korrekt zusammenarbeiten.|
+| End-to-End-Test                 | Ein Test, der die gesamte Anwendung von Anfang bis Ende prüft, um sicherzustellen, dass alle Teile des Systems zusammen funktionieren.|
+| Statische Code Analyse          | Eine Methode zur Analyse des Quellcodes ohne dessen Ausführung, um potenzielle Fehler und Schwachstellen frühzeitig zu erkennen. |
+| Fallback-Mechanismus            | Ein Prozess, der sicherstellt, dass eine Anwendung weiterhin funktioniert, selbst wenn ein Teil des Systems ausfällt, indem alternative Wege genutzt werden.|
+| Lasttest                        | Ein Test, der die Performance einer Anwendung unter hoher Belastung prüft, um sicherzustellen, dass sie unter extremen Bedingungen stabil bleibt.|
+| Polygon API                     | Ein Dienst, der Echtzeit- und historische Marktdaten für Finanzanwendungen bereitstellt.|
 
 
 
