@@ -231,7 +231,33 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 | Backend-Datenbank | Kommunikatonsschnittstelle zwischen den Spring Boot Backend und Redis Datenbank |
 | Frontend-Backend  | Kommunikationsschnittstelle zwischen Spring Boot Backend und Polygon API|
 
-### Ebene 2
+### React Frontend
+**Zweck/Verantwortung:** Das React Frontend ist für die Darstellung der Benutzeroberfläche und die Interaktion mit dem Benutzer verantwortlich. Es ermöglicht es den Benutzern, Aktien auszuwählen und die entsprechenden Informationen anzuzeigen.
+
+**Schnittstellen:**
+- `HTTP GET /stock/{symbol}/{date}`: Ruft die Aktieninformationen für das angegebene Symbol und Datum ab.
+- `HTTP GET /stock/delete/{symbol}/{date}`: Löscht die Aktieninformationen für das angegebene Symbol und Datum.
+
+### Spring Boot Backend
+**Zweck/Verantwortung:** Das Spring Boot Backend ist für die Implementierung der Geschäftslogik und die Bereitstellung der API-Schnittstellen verantwortlich. Es verarbeitet die Anfragen vom Frontend, kommuniziert mit der Datenbank und der externen API und stellt die Aktieninformationen bereit.
+
+**Schnittstellen:**
+- `HTTP GET /stock/{symbol}/{date}`: Ruft die Aktieninformationen für das angegebene Symbol und Datum ab.
+- `HTTP GET /stock/delete/{symbol}/{date}`: Löscht die Aktieninformationen für das angegebene Symbol und Datum.
+-  `CacheService`: Schnittstelle zur Redis-Datenbank für das Caching von Aktieninformationen.
+
+### Redis Datenbank
+**Zweck/Verantwortung:** Die Redis-Datenbank ist für die Speicherung und Verwaltung der Aktieninformationen verantwortlich. Sie dient als Zwischenspeicher für häufig abgerufene Daten und ermöglicht eine schnelle und effiziente Datenabfrage.
+
+**Schnittstellen:**
+- `CacheService`: Schnittstelle zum Backend für das Caching von Aktieninformationen.
+
+### Polygon API
+**Zweck/Verantwortung:** Die Polygon API ist eine externe Datenquelle, die Echtzeit- und historische Aktieninformationen bereitstellt. Sie wird vom Backend verwendet, um aktuelle und genaue Aktieninformationen abzurufen.
+
+**Schnittstellen:**
+- `HTTP GET https://api.polygon.io/v1/open-close/{symbol}/{date}`: Endpunkt zum Abrufen der Aktieninformationen für das angegebene Symbol und Datum.
+
 
 ## Laufzeitsicht
 
