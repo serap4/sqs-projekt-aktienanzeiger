@@ -131,11 +131,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd frontend
-          npx sonar-scanner \
-          -Dsonar.projectKey=sqs-projekt_frontend \
-          -Dsonar.sources=src \
-          -Dsonar.tests=src \
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          npx sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
   docker-container-build-push:
     needs: [backend-frontend-build-test, sonarcloud-analysis]
