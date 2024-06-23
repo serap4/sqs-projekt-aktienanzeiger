@@ -48,7 +48,20 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 - **Integrationsanforderungen:**
 
-  Redis, Polygon.io API  
+  Redis, Polygon.io API
+
+- **Netzwerk- und Kommunikationsanforderungen:**
+  
+  Externe API-Aufrufe sind ausschließlich über HTTPS abzuwickeln.
+
+  
+- **Entwicklungs- und Deployment-Anforderungen:**
+  
+  Einrichtung einer CI/CD-Pipeline mit GitHub Actions für automatisiertes Testen und Deployment.
+  
+  Verwendung von GitHub für die Versionskontrolle.
+  
+  Einsatz von Docker zur Containerisierung und Verwaltung der Laufzeitumgebungen.
 
 
 ### Organisatorische Randbedingungen
