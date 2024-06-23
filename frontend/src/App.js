@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import './App.css';
-import {Chart, Line} from 'react-chartjs-2';
-import 'chart.js/auto';
 
 function App() {
     const [selectedOption, setSelectedOption] = useState('IBM');
