@@ -2,7 +2,6 @@ package com.sqs.project.aktienanzeiger.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sqs.project.aktienanzeiger.service.ApiCommunicationService;
 import com.sqs.project.aktienanzeiger.model.StockData;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

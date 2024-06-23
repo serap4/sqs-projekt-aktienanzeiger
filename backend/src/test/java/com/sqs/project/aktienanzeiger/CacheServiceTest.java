@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class CacheServiceTest {
+class CacheServiceTest {
 
     @Mock
     private RedisTemplate<String, String> redisTemplate;
@@ -34,7 +34,7 @@ public class CacheServiceTest {
     }
 
     @Test
-    public void testGetFromCache() {
+    void testGetFromCache() {
         String key = "testKey";
         String expectedValue = "testValue";
 
@@ -47,7 +47,7 @@ public class CacheServiceTest {
     }
 
     @Test
-    public void testSaveToCache() {
+    void testSaveToCache() {
         String key = "testKey";
         String data = "testData";
         long timeout = 10;
@@ -61,7 +61,7 @@ public class CacheServiceTest {
     }
 
     @Test
-    public void testDeleteFromCache() {
+    void testDeleteFromCache() {
         String key = "testKey";
 
         when(redisTemplate.delete(anyString())).thenReturn(null);

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class StockServiceTest {
+class StockServiceTest {
 
     @Mock
     private ApiCommunicationService apiService;
@@ -34,7 +34,7 @@ public class StockServiceTest {
     }
 
     @Test
-    public void testGetStockData_FromCache() throws IOException {
+    void testGetStockData_FromCache() throws IOException {
         String symbol = "AAPL";
         String date = "2022-01-01";
         String key = symbol + ":" + date;
@@ -58,7 +58,7 @@ public class StockServiceTest {
     }
 
     @Test
-    public void testGetStockData_FromApi() throws IOException {
+    void testGetStockData_FromApi() throws IOException {
         String symbol = "AAPL";
         String date = "2022-01-01";
         String key = symbol + ":" + date;
@@ -83,7 +83,7 @@ public class StockServiceTest {
     }
 
     @Test
-    public void testDeleteStockData() {
+    void testDeleteStockData() {
         String symbol = "AAPL";
         String date = "2022-01-01";
         String key = symbol + ":" + date;

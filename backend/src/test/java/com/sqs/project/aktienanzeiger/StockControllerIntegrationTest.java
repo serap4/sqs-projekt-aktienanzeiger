@@ -1,7 +1,6 @@
 package com.sqs.project.aktienanzeiger;
 
 import com.sqs.project.aktienanzeiger.service.StockService;
-import com.sqs.project.aktienanzeiger.controller.StockController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StockControllerIntegrationTest {
+class StockControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -24,7 +23,7 @@ public class StockControllerIntegrationTest {
     private StockService stockService;
 
     @Test
-    public void testGetStockData() throws Exception {
+    void testGetStockData() throws Exception {
         mockMvc.perform(get("/stock/GOOGL/2024-06-18")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -32,7 +31,7 @@ public class StockControllerIntegrationTest {
     }
 
     @Test
-    public void testDeleteStockData() throws Exception {
+    void testDeleteStockData() throws Exception {
         mockMvc.perform(get("/stock/delete/GOOGL/2024-06-18")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

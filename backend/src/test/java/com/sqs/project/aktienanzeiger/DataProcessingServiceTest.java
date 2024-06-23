@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DataProcessingServiceTest {
+class DataProcessingServiceTest {
 
     private DataProcessingService dataProcessingService;
 
@@ -17,7 +17,7 @@ public class DataProcessingServiceTest {
     }
 
     @Test
-    public void testParseStockData_Success() throws JsonProcessingException {
+    void testParseStockData_Success() throws JsonProcessingException {
         String jsonData = "{\"symbol\":\"AAPL\",\"from\":\"2022-01-01\",\"open\":150.0,\"high\":155.0,\"low\":148.0,\"close\":154.0,\"volume\":1000000,\"afterHours\":153.0,\"preMarket\":149.0}";
 
         StockData stockData = dataProcessingService.parseStockData(jsonData);
@@ -35,7 +35,7 @@ public class DataProcessingServiceTest {
     }
 
     @Test
-    public void testParseStockData_InvalidJson() {
+    void testParseStockData_InvalidJson() {
         String invalidJsonData = "{\"symbol\":\"AAPL\",\"from\":\"2022-01-01\",\"open\":150.0,\"high\":\"invalid\",\"low\":148.0,\"close\":154.0,\"volume\":1000000,\"afterHours\":153.0,\"preMarket\":149.0}";
 
         JsonProcessingException exception = assertThrows(JsonProcessingException.class, () -> {
@@ -46,7 +46,7 @@ public class DataProcessingServiceTest {
     }
 
     @Test
-    public void testParseStockData_EmptyJson() throws JsonProcessingException {
+    void testParseStockData_EmptyJson() throws JsonProcessingException {
         String emptyJsonData = "{}";
 
         StockData stockData = dataProcessingService.parseStockData(emptyJsonData);
