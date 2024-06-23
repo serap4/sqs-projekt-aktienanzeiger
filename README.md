@@ -229,6 +229,14 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ## Qualitätsanforderung
 
+**Übertragbarkeit (Portability):**
+Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden, ist von entscheidender Bedeutung. Das Ziel ist es, eine effiziente Ressourcennutzung und plattformunabhängige Nutzbarkeit zu gewährleisten und externe Abhängigkeiten zu reduzieren. Um dies zu erreichen, werden End-to-End-Tests mit Playwright durchgeführt, die Nutzung von Docker zur Containerisierung implementiert, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit sicherzustellen, sowie Docker-Compose-Dateien verwendet, um die Services zu starten.
+
+**Benutzerfreundlichkeit (Usability):**
+Die Anwendung muss einfach und effizient zu bedienen sein, damit Benutzer das System problemlos verwenden und ihre Aufgaben schnell erledigen können. Ziele sind eine klar strukturierte Benutzeroberfläche und eine einfache Bedienbarkeit. Maßnahmen zur Erreichung dieser Ziele umfassen UI-Tests und End-to-End-Tests mit Playwright, um sicherzustellen, dass die Benutzeroberfläche intuitiv und benutzerfreundlich gestaltet ist.
+
+**Zuverlässigkeit (Reliability):**
+Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funktionieren und eine hohe Stabilität bei starker Nutzung zu gewährleisten. Um dies zu erreichen, werden Integrations- und umfassende Unit-Tests durchgeführt, um die Zuverlässigkeit und Stabilität des Systems zu überprüfen. Darüber hinaus werden Lasttests mit Artillery eingesetzt, um sicherzustellen, dass das System auch unter hoher Last stabil bleibt und die robuste Verarbeitung von Benutzereingaben gewährleistet ist.
 ### Qualitätsbaum
 
 ### Qualitätszenarien
