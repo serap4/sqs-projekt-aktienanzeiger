@@ -440,13 +440,20 @@ Die Images für das Front- und Backend werden aus der GitHub-Registry des Projek
 
 ## Querschnittliche Konzepte
 
-### Fachlich Struktur und Modelle
+### Backend UML-Klassendiagramm
 
-### Architektur- und Entwurfsmuster
 
-### Unter-der-Haube
+### Github Actions CI/CD Pipeline
+[Github-Actions-Datei](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/.github/workflows/main-pipeline.yml)
 
-### User Experience
+### Artillery Lasttest
+[Artillery-Test-Datei](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/artillery-test/artillery.yml)
+
+### Playwright End-to-End-Tests
+[Playwright-Test-Datei](https://github.com/serap4/sqs-projekt-aktienanzeiger/tree/master/end2end/tests)
+
+### SonarCloud Code-Qualitätsanalyse
+[SonarCloud-Report](https://sonarcloud.io/project/overview?id=sqs-projekt_backend)
 
 ## Architekturentscheidung
 
