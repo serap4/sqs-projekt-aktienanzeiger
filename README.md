@@ -11,14 +11,17 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 ![Assignment Details](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Assignment%20Details%20SQS2024.png)
 
 ### Qualitätsziele
-
+ 
 | Qualitätskriterium | Beschreibung      | Ziele      | Maßnahmen       |
 | -------------- | -------------- | -------------- | -------------- |
-| Inhalt Zeile 1 | Inhalt Zeile 1 | Inhalt Zeile 1 | Inhalt Zeile 1 |
-| Inhalt Zeile 2 | Inhalt Zeile 2 | Inhalt Zeile 2 | Inhalt Zeile 2 |
-| Inhalt Zeile 3 | Inhalt Zeile 3 | Inhalt Zeile 3 | Inhalt Zeile 3 |
-| Inhalt Zeile 4 | Inhalt Zeile 4 | Inhalt Zeile 4 | Inhalt Zeile 4 |
+| Portability - Übertragbarkeit | Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden.| - Effiziente Ressourcennutzung <br>- Plattformunabhängige Nutzbarkeit <br> Reduzierung externer Abhängigkeiten | - End-to-End-Tests mit Playwright <br>- Nutzung von Docker zur Containerisierung, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit zu gewährleisten <br>- Docker-Compose-Datei zum Starten der Services |
+| Usability - Benutzerfreundlichkeit | Die Einfachheit und Effizienz, mit der Benutzer das System verwenden und ihre Aufgaben erledigen können. | 
+- Klar strukturierte Benutzeroberfläche <br>- Einfache Bedienbarkeit| - UI-Tests <br>- End-to-End-Tests mit Playwright
+ |
+| Reliability - Zuverlässigkeit | Die Fähigkeit des Systems, unter festgelegten Bedingungen korrekt zu funktionieren. | - Hohe Stabilität unter hoher Last <br>- RBenutzereingaben
+ | - Integrationstests <br>- Umfassende Abdeckung durch Unit-Tests <br>-Lasttests mit Artillery|
 
+  
 ### Stakeholder
 
 | Rolle                    | Kontakt                                | Erwartungshaltung                                   |
@@ -26,6 +29,8 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 | Prüfer                   | Mario-Leander Reimer (mario-leander.reimer@th-rosenheim.de)  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
 | Prüfer                   | Gerd Beneken (gerd.beneken@th-rosenheim.de)                  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
 | Stundent (Entwickler)    | Serap Kaya (serap.kaya@stud.th-rosenheim.de) | Es wird erwartet, dass die Architektur geplant, der Code entwickelt, die Tests geplant und durchgeführt sowie die Dokumentation erstellt wird. | 
+| Anwender   |  | Es wird erwartet, dass die Anwendung schnell, zuverlässig und benutzerfreundlich ist, damit Benutzer Aktieninformationen auswählen und anzeigen können. | 
+| Polygon API  | https://polygon.io/ | Es wird erwartet, dass die angebotenen Dienste verantwortungsvoll und effizient genutzt werden. | 
 
 ## Randbedingungen
 
