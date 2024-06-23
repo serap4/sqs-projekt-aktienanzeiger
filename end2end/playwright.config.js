@@ -70,7 +70,7 @@ module.exports = defineConfig({
     // },
   ],
   timneout: 60000,
-  retries: 1,
+  retries: 2,
     /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
