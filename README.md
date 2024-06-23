@@ -169,7 +169,6 @@ Die Dokumentation der Polygon API ist unter folgendem Link verfügbar: https://p
 
 - Fachliche Schnittstelle: Benutzereingabe im Frontend  -> Technische Schnittstelle: HTTP Request an StockController
 - Fachliche Rückmeldung: Anzeige der Aktieninformationen im Frontend -> Technische Rückmeldung: HTTP Response von StockController
-- 
 
 ## Lösungsstrategie
 
