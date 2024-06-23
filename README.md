@@ -361,6 +361,7 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ### Infrastruktur Ebene 1
 
+
 ## Docker-Compose-Datei
 
 In diesem Projekt genutzte Docker-Compose-Datei: [Docker-Compose-File](link-zur-docker-compose-file)
