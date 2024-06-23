@@ -302,6 +302,21 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ![übersichsdiagramm](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Spring%20Boot%20Backend.PNG)
 
+### Whitebox React Frontend
+#### Übersichtsdiagramm
+
+![übersichsdiagramm-Frontend](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/React-Frontend-Whitebox.png)
+
+| Name           | Verantwortung                                                                                                                                                                         |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AppComponent   | Kommuniziert mit den einzelnen beinhalteten Elementen und sendet Daten an das Spring Boot Backend. Ist Verantwortlich das alle Elemente korrekt dargestellt werden.                   |
+| Header         | Zeigt die Kopfzeile Ordnungsgemäß an.                                                                                                                                                 |
+| Delete Button  | Ist für die Löschung der ausgewählten Aktie zuständig. Wird auch für die Löschung aller Aktien benutzt. Sendet eine Anfrage zur Löschung einer Aktie über AppComponent an das Backend. |
+| Date Picker    | Ermöglicht dem Nutzer ein Datum auszuwählen damit eine Aktie angezeigt werden kann. Sendet über AppComponent die Daten an das Backend.                                                |
+| Stock Selector | Ist für die Auswahl einer Aktie zuständig. Nutzer wöhlt eine Aktie aus. Sendet die Daten über AppComponent an das Backend                                                             |
+| Stock Table    | Stellt die Angefragten Daten korrekt in einer Tabelle dar.                                                                                                                            |
+
+
 
 ## Laufzeitsicht
 
