@@ -102,8 +102,28 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 | Aktienanzeiger --> User                 | Benutzeroberflächenaktualisierungen  | Darstellung der Aktieninformationen |
 
 ### Technischer- oder Verteilungskontext
+Das System ruft Aktieninformationen über die externe Polygon API im Spring Boot Backend ab. Diese Daten werden in der Redis-Datenbank zwischengespeichert und über die React-Webanwendung den Benutzern zur Verfügung gestellt.
 
+#### UML Deployment Diagramm
 ![Technischerkontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/UML-Deployment-Diagramm.png)
+
+
+| Technischer Kanal                    | Eingabe                                | Ausgabe                                  |
+| ------------------------ | ---------------------------------------| --------------------------------------------------- |
+| User --> React Frontend | Benutzeraktion (z. B.: Aktien und Datum | Aktualisierung der Benutzeroberfläche |
+| React Frontend --> StockController | HTTP Request (Akten und Datum) | HTTP Response (Aktieninformation) |
+| StockController --> StockService | API Requesst (Aktien und Datum) | Ergebnis der Datenabfrage |
+| StockService --> ApiCommunicationService | API Requesst (Aktien und Datum)| Ergebnis der Datenabfrage |
+| ApiCommunicationService --> Polygon API | HTTP Request (Aktien und Datum| HTTP Response (Aktieninformation) |
+| Polygon API --> ApiCommunicationService | | HTTP Response (Aktieninformationen) |
+| StockService --> CacheService | Datenabfrage | Daten speichern und abrufen |
+| CacheService --> Redis Cache | Datenabfrage| Datenübertragung (Aktieninformation) |
+| Redis Cache --> DataProcessingService || Datenübertragung (Aktieninformation) |
+| DataProcessingService --> StockService | Datenkonvertierung	| Datenübertragung |
+| StockService --> StockControlller | Datenabfrage | Datenübertragung (Aktieninformation) |
+| StockService --> React Frontend |  HTTP Response | Aktualisierte Benutzeroberfläche |
+
+
 ## Lösungsstrategie
 
 Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesentlicher Technologieentscheidungen und Systemdesigns, die gezielt auf die spezifischen Anforderungen, Rahmenbedingungen und Qualitätsziele zugeschnitten sind. Diese strategischen Entscheidungen sind darauf ausgerichtet, die Anforderungen des Projekts optimal zu erfüllen und eine robuste, skalierbare und benutzerfreundliche Lösung zu gewährleisten.
