@@ -96,10 +96,10 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 | Kommunikationsbeziehung                    | Eingabe                                | Ausgabe                                   |
 | ------------------------------- | ---------------------------------------| --------------------------------------------------- |
-| User --> Aktienanzeiger                 | Aktien und Datum auswählen| - | 
+| User --> Aktienanzeiger                 | Aktien und Datum auswählen|  Benutzeroberflächenaktualisierungen | 
 | Aktienanzeiger --> Polygon API                 | Suchanfrage mit Aktien und Datum | - |
 | Polygon API --> Aktienanzeiger                | - | Übermittlung der Aktiendaten für dieses Datum|
-| Aktienanzeiger --> User                 | -  | Darstellung der Aktieninformationen |
+| Aktienanzeiger --> User                 | Benutzeroberflächenaktualisierungen  | Darstellung der Aktieninformationen |
 
 ### Technischer- oder Verteilungskontext
 
@@ -201,11 +201,42 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ## Laufzeitsicht
 
-### Laufzeitszenario 1 
+### Szenario 1: Abruf von Aktieninformationen (Cache-Hit) 
+1. **Benutzeranfrage im Frontend:** Ein Benutzer durchstöbert die React basierte Webanwendung und selektiert eine Aktie sowie ein Datum, um die zugehörigen Aktieninformationen abzurufen.
+2. **Anfrage an das Backend:** Das Frontend übermittelt eine HTTP-GET-Anfrage an das Spring Boot-Backend. Der entsprechende Endpunkt lautet /stock/{symbol}/{date}.
+3. **Überprüfung des Caches im Backend:** Das Backend kontrolliert, ob die Aktieninformationen für die ausgewählte Aktie und das angegebene Datum bereits im Redis-Cache gespeichert sind.
+4. **Cache-Hit:** Falls die Informationen im Cache gespeichert sind, werden sie aus dem Cache an das Backend übertragen.
+5. **Antwort an das Frontend:** Das Backend übermittelt die Aktieninformationen an das Frontend.
+6. **Anzeige der Daten:** Das Frontend präsentiert dem Benutzer die erhaltenen Aktieninformationen.
+
+### Laufzeitdiagramm
 ![Szenario 1](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Laufzeitdiagramm%201.PNG)
 
-### Laufzeitszenario 2
+### Szenario 2: 
+
+1. **Benutzeranfrage im Frontend:** Ein Benutzer durchstöbert die React basierte Webanwendung und selektiert eine Aktie sowie ein Datum, um die zugehörigen Aktieninformationen abzurufen.
+2. **Anfrage an das Backend:** Das Frontend übermittelt eine HTTP-GET-Anfrage an das Spring Boot-Backend. Der entsprechende Endpunkt lautet /stock/{symbol}/{date}.
+3. **Überprüfung des Caches im Backend:** Das Backend kontrolliert, ob die Aktieninformationen für die ausgewählte Aktie und das angegebene Datum bereits im Redis-Cache gespeichert sind.
+4.  **Cache-Miss**: Falls die Informationen nicht im Cache verfügbar sind, wird eine Anfrage an die externe Polygon API gesendet.
+5.  **Anfrage an die API der Polygon:** Das Backend initiiert eine HTTP-GET-Anfrage an die Polygon API, um die Aktieninformationen für die gewählte Aktie und das ausgewählte Datum zu erhalten.
+6.  **Empfang und Speicherung der Daten**: Die Polygon API übermittelt die Daten im JSON-Format. Diese Informationen werden vom Backend in der Redis-Datenbank zwischengespeichert.
+7.  **Antwort an das Frontend:** Das Backend übermittelt die Aktieninformationen an das Frontend.
+8.  **Anzeiger der Daten:** Das Frontend präsentiert die abgerufenen Aktieninformationen dem Benutzer.
+
+### Laufzeitdiagramm
 ![Szenario 2](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Laufzeitdiagramm%202%20.PNG)
+
+### Szenario 3: Löschung von Aktieninformationen
+
+1. **Benutzeranfrage im Frontend:** Ein Benutzer durchstöbert die React basierte Webanwendung und selektiert eine Aktie sowie ein Datum, um die zugehörigen Aktieninformationen abzurufen.
+2. **Anfrage an das Backend:** Das Frontend übermittelt eine HTTP-GET-Anfrage an das Spring Boot-Backend. Der entsprechende Endpunkt lautet /stock/delete{symbol}/{date}.
+3. **Überprüfung des Caches im Backend:** Das Backend kontrolliert, ob die Aktieninformationen für die ausgewählte Aktie und das angegebene Datum bereits im Redis-Cache gespeichert sind.
+4. **Löschung der Aktieninformation aus der Datenbank:** Falls die Informationen im Cache gespeichert sind, werden sie aus dem Cache gelöscht.
+5. **Antwort an das Frontend:** Das Backend bestätigt, dass die ausgewählte Nachricht gelöscht wurde.
+6.  **Anzeiger der Daten:** Eine leere Tabelle wird dargestellt.
+
+### Laufzeitdiagramm
+![Szenario 3](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Laufzeitdiagramm%203.PNG)
 
 ## Verteilungssicht
 
