@@ -39,18 +39,22 @@ jobs:
         run: |
           cd backend
           mvn clean install
-          
-      - name: Test Backend
+
+      - name: Test Backend with JaCoCo
         run: |
           cd backend
           mvn test
+          mvn jacoco:report
+
       - name: Build Backend package
         run: |
           cd backend
           mvn -B package --file pom.xml
-      - name: Run Backend in Backgroung
+
+      - name: Run Backend in Background
         run: |
           cd backend
+          mvn spring-boot:run &
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -68,8 +72,12 @@ jobs:
           npm test
         env:
           CI: true
-  sonarcloud-analysis:
+      - name: Run frontend in Background
+        run: |
+          cd frontend
+          npm run build &
 
+  sonarcloud-analysis:
     runs-on: ubuntu-latest
     needs: backend-frontend-build-test
     steps:
@@ -101,9 +109,34 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and analyze
+      - name: Build and analyze backend
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: ./backend
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sqs-projekt_aktienzeiger
+        run: |
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=sqs-projekt_backend \
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+
+      - name: Analyze frontend
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          cd frontend
+          npx sonar-scanner \
+          -Dsonar.projectKey=sqs-projekt_frontend \
+          -Dsonar.sources=src \
+          -Dsonar.tests=src \
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+  docker-container-build-push:
+    needs: [backend-frontend-build-test, sonarcloud-analysis]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Steps to build and push docker container images go here
