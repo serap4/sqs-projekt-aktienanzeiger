@@ -131,7 +131,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd frontend
-          npx sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+          npx sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.projektKey=sqs-projek_frontend -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
   docker-container-build-push:
     needs: [backend-frontend-build-test, sonarcloud-analysis]
