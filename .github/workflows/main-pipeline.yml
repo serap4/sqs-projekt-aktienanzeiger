@@ -51,11 +51,6 @@ jobs:
           cd backend
           mvn -B package --file pom.xml
 
-      - name: Run Backend in Background
-        run: |
-          cd backend
-          mvn spring-boot:run &
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -72,18 +67,9 @@ jobs:
           npm test
         env:
           CI: true
-      - name: Run frontend in Background
-        run: |
-          cd frontend
-          npm run build &
 
   sonarcloud-analysis:
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis
-        ports:
-          - 6379:6379
     needs: backend-frontend-build-test
     steps:
       - name: Checkout code
@@ -122,6 +108,8 @@ jobs:
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=sqs-projekt_backend \
+            -Dsonar.organization=sqs-projekt \
+            -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
@@ -131,7 +119,13 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd frontend
-          npx sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.projektKey=sqs-projek_frontend -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+          npx sonar-scanner \
+          -Dsonar.projectKey=sqs-projekt_frontend \
+          -Dsonar.organization=sqs-projekt \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.sources=src \
+          -Dsonar.tests=src \
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
   docker-container-build-push:
     needs: [backend-frontend-build-test, sonarcloud-analysis]
