@@ -174,6 +174,18 @@ Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funk
 
 ### Organisatorische Entscheidungen
 
+**CI/CD-Pipeline mit GitHub Actions:**
+Ein zentraler Bestandteil dieser Entscheidungen ist die Einrichtung einer CI/CD-Pipeline mithilfe von GitHub Actions. Diese Pipeline automatisiert den gesamten Entwicklungsprozess von der Code-Einreichung bis zur Bereitstellung und ermöglicht eine kontinuierliche Integration und Auslieferung neuer Funktionen und Verbesserungen. Bei jedem Commit oder Pull-Request wird der Code automatisch gebaut und durch eine Reihe von Tests überprüft. Dazu gehören Unit-Tests, Integrationstests und End-to-End-Tests, die sicherstellen, dass die Anwendung sowohl funktional als auch stabil bleibt.
+
+**Testing-Strategien:**
+Speziell für das Frontend werden Tests durchgeführt, um sicherzustellen, dass die Benutzeroberfläche den Anforderungen entspricht und eine positive Nutzererfahrung bietet. Im Backend kommen ArchUnit-Tests zum Einsatz, um die Einhaltung von Architekturprinzipien zu gewährleisten. Zudem werden die Dockerfiles gelintet, um ihre syntaktische Korrektheit sicherzustellen. Ein weiteres wichtiges Tool in diesem Entwicklungsprozess ist SonarCloud. Es wird verwendet, um den Code kontinuierlich zu analysieren und sicherzustellen, dass er den Qualitätsstandards entspricht. Sicherheitslücken, Code-Smells und andere potenzielle Probleme werden so frühzeitig erkannt und behoben. Um die Anwendung auf ihre Leistungsfähigkeit und Stabilität unter hoher Last zu testen, werden automatisierte Lasttests mit Artillery durchgeführt. Diese Tests helfen dabei, die Belastbarkeit des Systems zu überprüfen und sicherzustellen, dass es auch bei intensiver Nutzung zuverlässig funktioniert.
+
+**Verwendung von Docker:**
+Docker wird zur Containerisierung und Verwaltung der Laufzeitumgebungen eingesetzt. Diese Entscheidung ermöglicht es, die Anwendung in isolierten Containern zu entwickeln und bereitzustellen, was die Konsistenz zwischen Entwicklungs-, Test- und Produktionsumgebungen sicherstellt. Docker-Compose wird verwendet, um die verschiedenen Services der Anwendung einfach zu starten und zu verwalten. Diese Vorgehensweise erleichtert die Einrichtung und den Betrieb der gesamten Entwicklungsumgebung und reduziert potenzielle Konflikte zwischen Abhängigkeiten. Nach Abschluss der Tests werden Docker-Container erstellt und in einer Registry gespeichert. Diese Container ermöglichen eine konsistente Bereitstellung der Anwendung in verschiedenen Umgebungen.
+
+**Versionskontrolle mit GitHub:**
+Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht eine effiziente Verwaltung des Codes, indem alle Änderungen in einem zentralen Repository nachverfolgt werden. Dies erleichtert die Sicherung der Entwicklungsfortschritte und ermöglicht bei Bedarf eine einfache Wiederherstellung früherer Versionen.
+
 ## Bausteinsicht
 
 ### Whitebox Gesamtsystem
