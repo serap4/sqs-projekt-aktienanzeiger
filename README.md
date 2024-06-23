@@ -296,6 +296,12 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 **Schnittstellen:**
 - `HTTP GET https://api.polygon.io/v1/open-close/{symbol}/{date}`: Endpunkt zum Abrufen der Aktieninformationen für das angegebene Symbol und Datum.
 
+## Ebene 1
+### Whitebox Spring Boot Backend
+#### Übersichtsdiagramm
+
+![übersichsdiagramm](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Spring%20Boot%20Backend.PNG)
+
 
 ## Laufzeitsicht
 
