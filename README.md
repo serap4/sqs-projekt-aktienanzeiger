@@ -221,11 +221,101 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ### User Experience
 
-## Entwurfsentscheidungen
+## Architekturentscheidung
 
-### Entwurfsentscheidung 1
+### Technologieauswahl:
 
-### Entwurfsentscheidung 2
+In diesem Projekt kamen die folgenden Technologien zum Einsatz:
+
+- Spring Boot: Dient zur Implementierung des Backends aufgrund seiner Robustheit und Skalierbarkeit, sowie der einfachen Integration von Microservices. 
+
+- React: Wird für die Entwicklung des Frontends verwendet, da es eine dynamische und reaktive Benutzeroberfläche ermöglicht und durch seine Komponentenstruktur die Wartbarkeit verbessert.
+
+- Redis: Wird als In-Memory-Datenbank eingesetzt, um schnelle Zugriffszeiten und effizientes Caching zu gewährleisten, was die Performance der Anwendung erhöht.
+
+- Polygon API: Diese API liefert Echtzeit- und historische Marktdaten, die für die Anwendung benötigt werden, um aktuelle Aktieninformationen bereitzustellen.
+
+- Playwright: Ein Framework für End-to-End-Tests, das sicherstellt, dass die gesamte Anwendung von Anfang bis Ende korrekt funktioniert und eine gute Benutzererfahrung bietet.
+
+- Docker Compose: Wird zur Orchestrierung von Multi-Container-Docker-Anwendungen verwendet, um eine einfache Verwaltung und Koordination der verschiedenen Services zu ermöglichen.
+
+- Docker: Ermöglicht die Containerisierung der Anwendung, was für konsistente Laufzeitumgebungen sorgt und die Portabilität und Skalierbarkeit verbessert.
+
+- ArchUnit: Ein Framework zur Überprüfung der Einhaltung von Architekturregeln im Java-Code, um sicherzustellen, dass die Architektur konsistent und wartbar bleibt.
+
+- GitHub Actions: Dient zur Implementierung der CI/CD-Pipeline, um automatisierte Builds, Tests und Deployments zu ermöglichen und somit die Effizienz und Zuverlässigkeit der Entwicklungsprozesse zu steigern.
+
+- SonarCloud: Ein Tool zur statischen Codeanalyse, das zur Verbesserung der Codequalität und zur Erkennung von Sicherheitslücken und Code-Smells eingesetzt wird.
+
+- Artillery: Wird für Last- und Performance-Tests verwendet, um die Belastbarkeit und Leistungsfähigkeit der Anwendung unter verschiedenen Bedingungen sicherzustellen.
+
+- JUnit: Ein Framework für Unit-Tests in Java, das zur Überprüfung der einzelnen Komponenten der Anwendung eingesetzt wird, um deren Funktionalität sicherzustellen.
+
+
+### Schichtenmodell
+- **Präsentationsschicht (Frontend)** 
+Die Präsentationsschicht ist verantwortlich für die Benutzerinteraktion und Darstellung der Daten. Sie wird in React implementiert und kommuniziert über REST-APIs mit dem Backend. Diese Schicht ist darauf ausgelegt, eine intuitive und reaktionsschnelle Benutzeroberfläche zu bieten, die es den Benutzern ermöglicht, schnell und effizient mit der Anwendung zu interagieren.
+  
+- **Geschäftslogik-Schicht (Backend):** Die Geschäftslogik-Schicht verarbeitet Anfragen vom Frontend, führt die Geschäftslogik aus und kommuniziert mit der Datenbank sowie externen APIs. Sie wird in Java mit Spring Boot entwickelt und stellt das Herzstück der Anwendung dar. Diese Schicht sorgt dafür, dass alle Geschäftsprozesse korrekt ausgeführt werden und die Datenintegrität gewahrt bleibt.
+
+- **Datenzugriffsschicht (Datenbank):** Die Datenzugriffsschicht verwaltet die Speicherung und den effizienten Zugriff auf Daten. Redis wird als schnelle und skalierbare Datenbanklösung genutzt. Diese Schicht gewährleistet, dass Daten effizient gespeichert und abgerufen werden können, und unterstützt gleichzeitig die Caching-Strategie der Anwendung, um die Leistung zu optimieren.
+
+- **Integrationsschicht:** Die Integrationsschicht ist für die Kommunikation mit der externen Polygon.io API verantwortlich und stellt sicher, dass die abgerufenen Daten stets aktuell sind. Diese Schicht gewährleistet eine zuverlässige und effiziente Integration externer Datenquellen, was für die Bereitstellung aktueller und genauer Aktieninformationen unerlässlich ist.
+
+### Entwicklungsprozess
+
+Der Entwicklungsprozess für die Aktienanzeiger-Webanwendung wurde sorgfältig strukturiert und in mehreren Phasen durchgeführt, um eine hohe Qualität und Effizienz zu gewährleisten.
+
+**1. Backend-Entwicklung:**
+Der Prozess begann mit der Entwicklung des Backends, das mit Java und dem Spring Boot Framework umgesetzt wurde. Diese Phase umfasste die Implementierung der Geschäftslogik und der Datenzugriffsschicht. Dabei wurden die grundlegenden Funktionalitäten der Anwendung, wie die Verarbeitung von Benutzeranfragen und die Verwaltung der Datenbank, entwickelt. Es wurde besonderer Wert auf eine robuste und skalierbare Architektur gelegt, um zukünftige Erweiterungen und Anpassungen zu erleichtern.
+
+**2. Frontend-Entwicklung:**
+Nach Abschluss der Backend-Entwicklung wurde die Frontend-Entwicklung mit React gestartet. Diese Phase konzentrierte sich auf die Gestaltung einer benutzerfreundlichen und intuitiven Benutzeroberfläche. Es wurde eine klare und strukturierte Navigation implementiert, die es den Benutzern ermöglicht, Aktieninformationen schnell und einfach zu finden. Die Benutzeroberfläche wurde so gestaltet, dass sie responsiv ist und auf verschiedenen Geräten und Bildschirmgrößen optimal funktioniert.
+
+**3. API-Integration:**
+Anschließend wurde die Verbindung zur externen Polygon API hergestellt, um Echtzeit- und historische Marktdaten zu integrieren. Diese Phase umfasste die Implementierung der Schnittstellen zur externen API, die Datenabfrage und -verarbeitung sowie die Sicherstellung der Datenintegrität und Aktualität. Es wurden Fallback-Mechanismen implementiert, um die Zuverlässigkeit der Anwendung auch bei Ausfällen der externen API zu gewährleisten.
+
+**4. Testen:**
+Nach der erfolgreichen Integration der API wurde eine umfassende Testphase durchgeführt. Dabei kamen verschiedene Testmethoden zum Einsatz, einschließlich Unit-Tests, Integrationstests und End-to-End-Tests, um die Funktionalität, Zuverlässigkeit und Leistung der Anwendung sicherzustellen. Zusätzlich wurden Usability-Tests durchgeführt, um die Benutzerfreundlichkeit der Benutzeroberfläche zu überprüfen und zu optimieren.
+
+**5. Implementierung der CI/CD-Pipeline:**
+Zum Abschluss des Entwicklungsprozesses wurde eine CI/CD-Pipeline mithilfe von GitHub Actions eingerichtet. Diese Pipeline automatisiert den gesamten Build-, Test- und Deployment-Prozess. Bei jedem Push oder Pull-Request wird der Code automatisch gebaut und durch die definierten Tests geprüft. Nach erfolgreicher Prüfung wird die Anwendung in Docker-Containern gepackt und bereitgestellt. Diese Automatisierung gewährleistet eine kontinuierliche Integration und Auslieferung neuer Funktionen und Verbesserungen, was die Effizienz und Zuverlässigkeit der Bereitstellungsprozesse erheblich erhöht.
+
+### Technologische Eigenschaften des Projekts
+
+**Backend**
+
+| Begriff                         | Beschreibung                           | 
+| ------------------------------- | ---------------------------------------|
+| Technologie | Version|
+| Java | 17 |
+| Spring Boot | 3.3.0 |
+| Maven  | 3.9.8|
+
+**Frontend**
+| Begriff                         | Beschreibung                           | 
+| ------------------------------- | ---------------------------------------|
+| Technologie | Version|
+| React | 18.3.1 |
+| Node | 18 |
+
+
+**Database**
+| Begriff                         | Beschreibung                           | 
+| ------------------------------- | ---------------------------------------|
+| Technologie | Version|
+| Redis | 0.7.3 |
+
+**Testing**
+| Begriff                         | Beschreibung                           | 
+| ------------------------------- | ---------------------------------------|
+| ArchUnit | 0.22.0|
+| Artillery | latest |
+| JUnit | 5|
+| Playwright |	latest |
+
+
+
 
 ## Qualitätsanforderung
 
