@@ -47,7 +47,10 @@ jobs:
       - name: Build Backend package
         run: |
           cd backend
-          mvn -B package --file backend/pom.xml
+          mvn -B package --file pom.xml
+      - name: Run Backend in Backgroung
+        run: |
+          cd backend
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
