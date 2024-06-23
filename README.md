@@ -302,16 +302,28 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ![übersichsdiagramm](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Spring%20Boot%20Backend.PNG)
 
+#### Erhaltene Bausteine 
+
+| Name           | Verantwortung                                                                                                                                                                         |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------|
+| StockController | Empfängt Anfragen vom Frontend und leitet diese an den StockService weiter. |
+| StockService| Verarbeitet die Anfragen des StockControllers, koordiniert die Kommunikation mit CacheService und ApiCommunicationService.|
+| ApiCommunicationService| Stellt die Verbindung zur externen Polygon API her, um Aktieninformationen abzurufen.| 
+| CacheService| Verwaltet das Caching der Aktieninformationen in der Redis-Datenbank und liefert Daten aus dem Cache.|
+| DataProcessing Service| Verarbeitet die Rohdaten, die von der Polygon API und dem CacheService geliefert werden, und bereitet sie für die Nutzung auf.|
+
 ### Whitebox React Frontend
 #### Übersichtsdiagramm
 
 ![übersichsdiagramm-Frontend](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/React-Frontend-Whitebox.png)
 
+#### Erhaltene Bausteine 
+
 | Name           | Verantwortung                                                                                                                                                                         |
 |----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | AppComponent   | Kommuniziert mit den einzelnen beinhalteten Elementen und sendet Daten an das Spring Boot Backend. Ist Verantwortlich das alle Elemente korrekt dargestellt werden.                   |
 | Header         | Zeigt die Kopfzeile Ordnungsgemäß an.                                                                                                                                                 |
-| Delete Button  | Ist für die Löschung der ausgewählten Aktie zuständig. Wird auch für die Löschung aller Aktien benutzt. Sendet eine Anfrage zur Löschung einer Aktie über AppComponent an das Backend. |
+| Delete Button  | Ist für die Löschung der ausgewählten Aktie zuständig. Wird auch für die Löschung aller Aktien benutzt. Sendet eine Anfrage zur Löschung einer Aktie über AppComponent an das Backend. 
 | Date Picker    | Ermöglicht dem Nutzer ein Datum auszuwählen damit eine Aktie angezeigt werden kann. Sendet über AppComponent die Daten an das Backend.                                                |
 | Stock Selector | Ist für die Auswahl einer Aktie zuständig. Nutzer wöhlt eine Aktie aus. Sendet die Daten über AppComponent an das Backend                                                             |
 | Stock Table    | Stellt die Angefragten Daten korrekt in einer Tabelle dar.                                                                                                                            |
