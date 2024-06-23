@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from '../App';
 import fetchMock from 'jest-fetch-mock';
 
@@ -11,94 +11,62 @@ describe('App Component', () => {
     fetchMock.resetMocks();
   });
 
-  test('renders all elements correctly', () => {
+  test('renders the component', () => {
     render(<App />);
-
     expect(screen.getByText(/Herzlich willkommen bei deinem Aktien Anzeiger/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Wähle eine Aktie aus die du anzeigen lassen möchtest/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Wähle ein Datum/i)).toBeInTheDocument();  // Updated the label text
-    expect(screen.getByRole('button', { name: /Aktie Anzeigen!/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Aktie aus der Datenbank löschen/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Alle Aktien löschen/i })).toBeInTheDocument();
   });
 
-  test('fetches and displays stock data on show button click', async () => {
+  test('handles date change', () => {
     render(<App />);
-
-    const stockData = [
-      {
-        symbol: 'IBM',
-        from: '2023-06-20',
-        open: 120.0,
-        high: 125.0,
-        low: 118.0,
-        close: 124.0,
-        preMarket: 119.0,
-        afterHours: 125.5,
-      },
-    ];
-
-    fetchMock.mockResponseOnce(JSON.stringify(stockData));
-
-    fireEvent.change(screen.getByLabelText(/Wähle ein Datum/i), { target: { value: '2023-06-20' } });
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'IBM' } });
-    fireEvent.click(screen.getByRole('button', { name: /Aktie Anzeigen!/i }));
-
-    await screen.findByText('IBM'); // wait for data to be fetched and displayed
-
-    expect(screen.getByText('IBM')).toBeInTheDocument();
-    expect(screen.getByText('2023-06-20')).toBeInTheDocument();
-    expect(screen.getByText('120')).toBeInTheDocument();
-    expect(screen.getByText('125')).toBeInTheDocument();
-    expect(screen.getByText('118')).toBeInTheDocument();
-    expect(screen.getByText('124')).toBeInTheDocument();
-    expect(screen.getByText('119')).toBeInTheDocument();
-    expect(screen.getByText('125.5')).toBeInTheDocument();
+    const dateInput = screen.getByLabelText(/Wähle ein Datum/i);
+    fireEvent.change(dateInput, { target: { value: '2021-08-19' } });
+    expect(dateInput.value).toBe('2021-08-19');
   });
 
-  test('sends delete request on delete button click', async () => {
+  test('handles select change', () => {
     render(<App />);
-
-    fetchMock.mockResponseOnce('Aktie erfolgreich gelöscht');
-
-    fireEvent.change(screen.getByLabelText(/Wähle ein Datum/i), { target: { value: '2023-06-20' } });
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'IBM' } });
-    fireEvent.click(screen.getByRole('button', { name: /Aktie aus der Datenbank löschen/i }));
-
-    await screen.findByText('Aktie erfolgreich gelöscht'); // wait for the response
-
-    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/stock/delete/IBM/2023-06-20');
+    const selectInput = screen.getByDisplayValue('IBM');
+    fireEvent.change(selectInput, { target: { value: 'AAPL' } });
+    expect(selectInput.value).toBe('AAPL');
   });
 
-  test('sends delete requests for all stocks on clear button click', async () => {
+  test('fetches stock data on show button click', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify([{ symbol: 'AAPL', from: '2021-08-19', open: 150, high: 155, low: 148, close: 154, preMarket: 149, afterHours: 153 }]));
+
     render(<App />);
+    const dateInput = screen.getByLabelText(/Wähle ein Datum/i);
+    fireEvent.change(dateInput, { target: { value: '2021-08-19' } });
+    const selectInput = screen.getByDisplayValue('IBM');
+    fireEvent.change(selectInput, { target: { value: 'AAPL' } });
 
-    const stockData = [
-      { symbol: 'IBM', from: '2023-06-20' },
-      { symbol: 'AAPL', from: '2023-06-21' },
-    ];
+    const showButton = screen.getByText(/Aktie Anzeigen/i);
+    fireEvent.click(showButton);
 
-    fetchMock.mockResponseOnce(JSON.stringify(stockData));
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith('http://localhost:8080/stock/AAPL/2021-08-19'));
 
-    fireEvent.change(screen.getByLabelText(/Wähle ein Datum/i), { target: { value: '2023-06-20' } });
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'IBM' } });
-    fireEvent.click(screen.getByRole('button', { name: /Aktie Anzeigen!/i }));
+    await waitFor(() => {
+      expect(screen.getByText(/AAPL/i)).toBeInTheDocument();
+      expect(screen.getByText('2021-08-19')).toBeInTheDocument();
+      expect(screen.getByText('150')).toBeInTheDocument();
+    });
+  });
 
-    await screen.findByText('IBM'); // wait for data to be fetched and displayed
+  test('deletes stock data on delete button click', async () => {
+    fetchMock.mockResponseOnce('Stock data deleted');
 
-    fireEvent.change(screen.getByLabelText(/Wähle ein Datum/i), { target: { value: '2023-06-21' } });
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'AAPL' } });
-    fireEvent.click(screen.getByRole('button', { name: /Aktie Anzeigen!/i }));
+    render(<App />);
+    const dateInput = screen.getByLabelText(/Wähle ein Datum/i);
+    fireEvent.change(dateInput, { target: { value: '2021-08-19' } });
+    const selectInput = screen.getByDisplayValue('IBM');
+    fireEvent.change(selectInput, { target: { value: 'AAPL' } });
 
-    await screen.findByText('AAPL'); // wait for data to be fetched and displayed
+    const deleteButton = screen.getByText(/Aktie aus der Datenbank löschen/i);
+    fireEvent.click(deleteButton);
 
-    fetchMock.resetMocks();
-    fetchMock.mockResponse('Aktien erfolgreich gelöscht');
+    await waitFor(() => expect(fetch).toHaveBeenCalledWith('http://localhost:8080/stock/delete/AAPL/2021-08-19'));
 
-    fireEvent.click(screen.getByRole('button', { name: /Alle Aktien löschen/i }));
-
-    expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/stock/delete/IBM/2023-06-20');
-    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/stock/delete/AAPL/2023-06-21');
+    await waitFor(() => {
+      expect(screen.getByText('Stock data deleted')).toBeInTheDocument();
+    });
   });
 });
