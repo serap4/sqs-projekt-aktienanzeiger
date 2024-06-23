@@ -214,9 +214,23 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ![Whitebox Gesamtsystem](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Whitbox%20Gesamtsystem.PNG)
 
-**Begründung:**
+**Begründung:** Die Unterteilung des Gesamtsystems in verschiedene Komponenten erfolgt nach den Prinzipien der Modularität und der Verantwortlichkeitstrennung. Dies erleichtert die Wartung und Erweiterung des Systems.
+
 #### Erhaltene Bausteine
+| Name                         | Verantwortung                           | 
+| ------------------------------- | ---------------------------------------|
+| React Frontend | Auslieferung der Benutzeroberfläche-|
+| Spring Boot Backend | Implementierung der Geschäftslogik und Bereitstellung der API-Schnittstellen|
+| Redis Datenbank | Datenhaltung und -verwaltung|
+| Polygon API | Externe Datenquelle für Brauereiinformationen |
+
 #### Wichtige Schnittstellen
+| Schnittstelle                          | Beschreibung                          | 
+| ------------------------------- | ---------------------------------------|
+| Backend-Externe API | Kommunikationsschnittstelle zwischen dem React-Frontend und dem Spring Boot-Backend |
+| Backend-Datenbank | Kommunikatonsschnittstelle zwischen den Spring Boot Backend und Redis Datenbank |
+| Frontend-Backend  | Kommunikationsschnittstelle zwischen Spring Boot Backend und Polygon API|
+
 ### Ebene 2
 
 ## Laufzeitsicht
