@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('sindAlleElementeSichtbarTest', async ({ page }) => {
-    await page.goto('http://localhost:3000/');
+    await page.goto('http://localhost:80/');
     await expect(page.getByRole('heading', { name: 'Herzlich willkommen bei' })).toBeVisible();
     await expect(page.getByText('Wähle eine Aktie aus die du')).toBeVisible();
     await expect(page.getByLabel('Wähle ein Datum')).toBeVisible();

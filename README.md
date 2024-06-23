@@ -11,14 +11,14 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 ![Assignment Details](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Assignment%20Details%20SQS2024.png)
 
 ### Qualitätsziele
-
+ 
 | Qualitätskriterium | Beschreibung      | Ziele      | Maßnahmen       |
 | -------------- | -------------- | -------------- | -------------- |
-| Inhalt Zeile 1 | Inhalt Zeile 1 | Inhalt Zeile 1 | Inhalt Zeile 1 |
-| Inhalt Zeile 2 | Inhalt Zeile 2 | Inhalt Zeile 2 | Inhalt Zeile 2 |
-| Inhalt Zeile 3 | Inhalt Zeile 3 | Inhalt Zeile 3 | Inhalt Zeile 3 |
-| Inhalt Zeile 4 | Inhalt Zeile 4 | Inhalt Zeile 4 | Inhalt Zeile 4 |
+| Portability - Übertragbarkeit | Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden.| - Effiziente Ressourcennutzung <br>- Plattformunabhängige Nutzbarkeit <br> Reduzierung externer Abhängigkeiten | - End-to-End-Tests mit Playwright <br>- Nutzung von Docker zur Containerisierung, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit zu gewährleisten <br>- Docker-Compose-Datei zum Starten der Services |
+| Usability - Benutzerfreundlichkeit | Die Einfachheit und Effizienz, mit der Benutzer das System verwenden und ihre Aufgaben erledigen können. |- Klar strukturierte Benutzeroberfläche <br>- Einfache Bedienbarkeit| - UI-Tests <br>- End-to-End-Tests mit Playwright|
+| Reliability - Zuverlässigkeit | Die Fähigkeit des Systems, unter festgelegten Bedingungen korrekt zu funktionieren. | - Hohe Stabilität unter hoher Last <br>- Robuste Verarbeitung von Benutzereingaben|- Integrationstests <br>- Umfassende Abdeckung durch Unit-Tests <br>- Lasttests mit Artillery|
 
+  
 ### Stakeholder
 
 | Rolle                    | Kontakt                                | Erwartungshaltung                                   |
@@ -26,6 +26,8 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 | Prüfer                   | Mario-Leander Reimer (mario-leander.reimer@th-rosenheim.de)  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
 | Prüfer                   | Gerd Beneken (gerd.beneken@th-rosenheim.de)                  | Es wird erwartet, dass das Softwareprogramm und dessen Qualität überzeugend sind, um eine gute Note zu vergeben.|
 | Stundent (Entwickler)    | Serap Kaya (serap.kaya@stud.th-rosenheim.de) | Es wird erwartet, dass die Architektur geplant, der Code entwickelt, die Tests geplant und durchgeführt sowie die Dokumentation erstellt wird. | 
+| Anwender   |  | Es wird erwartet, dass die Anwendung schnell, zuverlässig und benutzerfreundlich ist, damit Benutzer Aktieninformationen auswählen und anzeigen können. | 
+| Polygon API  | https://polygon.io/ | Es wird erwartet, dass die angebotenen Dienste verantwortungsvoll und effizient genutzt werden. | 
 
 ## Randbedingungen
 
@@ -46,7 +48,20 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 - **Integrationsanforderungen:**
 
-  Redis, Polygon.io API  
+  Redis, Polygon.io API
+
+- **Netzwerk- und Kommunikationsanforderungen:**
+  
+  Externe API-Aufrufe sind ausschließlich über HTTPS abzuwickeln.
+
+  
+- **Entwicklungs- und Deployment-Anforderungen:**
+  
+  Einrichtung einer CI/CD-Pipeline mit GitHub Actions für automatisiertes Testen und Deployment.
+  
+  Verwendung von GitHub für die Versionskontrolle.
+  
+  Einsatz von Docker zur Containerisierung und Verwaltung der Laufzeitumgebungen.
 
 
 ### Organisatorische Randbedingungen
@@ -88,19 +103,53 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Technischer- oder Verteilungskontext
 
+![Technischerkontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/UML-Deployment-Diagramm.png)
 ## Lösungsstrategie
 
 Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesentlicher Technologieentscheidungen und Systemdesigns, die gezielt auf die spezifischen Anforderungen, Rahmenbedingungen und Qualitätsziele zugeschnitten sind. Diese strategischen Entscheidungen sind darauf ausgerichtet, die Anforderungen des Projekts optimal zu erfüllen und eine robuste, skalierbare und benutzerfreundliche Lösung zu gewährleisten.
 
 ### Technologieentscheidungen
 
--	**Backend:** Das Backend wird in Java mit Spring Boot entwickelt, was eine robuste und skalierbare Architektur ermöglicht. Diese Entscheidung beruht auf der Stabilität und Flexibilität, die Spring Boot bietet, sowie der breiten Unterstützung in der Entwicklergemeinschaft.
-  
-- **Frontend:** Das Frontend wird mit React umgesetzt. Diese JavaScript-Bibliothek wurde aufgrund ihrer Fähigkeit gewählt, dynamische und interaktive Benutzeroberflächen zu erstellen. React ermöglicht eine modulare und wiederverwendbare Komponentenarchitektur, die eine hohe Performance durch virtuelle DOM (=Document Object Model)-Funktionen bietet.  
+**Backend:**
 
-- **Datenbank:** Redis wird als In-Memory-Datenbank eingesetzt, die für ihre hohe Leistung und Skalierbarkeit bekannt ist. Diese Entscheidung unterstützt die schnelle Datenverarbeitung und effizientes Caching, was die Antwortzeiten reduziert.
+- **Technologie:** Java mit Spring Boot
+- **Begründung:** Spring Boot bietet eine robuste und skalierbare Architektur, die schnelle Entwicklung und einfache Integration mit verschiedenen Datenbanken und externen APIs ermöglicht. Es hat eine breite Unterstützung in der Entwicklergemeinschaft und umfangreiche Dokumentation.
   
-- **Externe API:** Die benötigten Aktieninformationen werden von der Polygon.io API abgerufen, die umfassende und aktuelle Marktdaten bereitstellt.
+**Frontend:**
+
+- **Technologie:** React
+- **Begründung:** React wurde gewählt, weil es die Erstellung dynamischer und interaktiver Benutzeroberflächen ermöglicht. Es unterstützt eine modulare und wiederverwendbare Komponentenarchitektur und bietet eine hohe Performance durch virtuelle DOM-Funktionen. React ist weit verbreitet und hat eine starke Community-Unterstützung, was die langfristige Wartung und Erweiterung der Anwendung erleichtert.
+
+**Datenbank:**
+
+- **Technologie:** Redis
+- **Begründung:** Redis ist eine In-Memory-Datenbank, die für ihre hohe Leistung und Skalierbarkeit bekannt ist. Sie unterstützt schnelle Datenzugriffe und effizientes Caching, was die Antwortzeiten der Anwendung reduziert. Redis ist ideal für Anwendungen, die schnelle Verarbeitungsgeschwindigkeiten erfordern und bietet zudem umfangreiche Funktionen zur Datenpersistenz.
+
+**Externe API:**
+
+- **Technologie:** Polygon.io API
+- **Begründung:** Die Polygon.io API bietet umfassende und aktuelle Marktdaten, die für die Funktionalität der Aktienanzeiger-Webanwendung unerlässlich sind. Sie ist zuverlässig, gut dokumentiert und ermöglicht die einfache Integration von Echtzeit-Marktdaten.
+
+
+**Versionskontrolle:**
+
+- **Technologie:** GitHub
+- **Begründung:** GitHub wird für die Versionskontrolle verwendet, da es eine weit verbreitete und bewährte Plattform ist. Es unterstützt kollaborative Entwicklung, ermöglicht einfaches Verwalten von Code-Repositories und bietet umfassende Integrationen mit anderen Tools und Diensten.
+
+**CI/CD:**
+
+- **Technologie:** GitHub Actions
+- **Begründung:** GitHub Actions wird für die Einrichtung einer CI/CD-Pipeline verwendet, um automatisiertes Testing und Deployment zu gewährleisten. Dies ermöglicht eine kontinuierliche Integration und Bereitstellung, was die Qualität und Stabilität der Anwendung erhöht.
+
+**Containerisierung:**
+
+- **Technologie:** Docker
+- **Begründung:** Docker wird zur Containerisierung und Verwaltung der Laufzeitumgebungen eingesetzt. Es stellt sicher, dass die Anwendung plattformunabhängig und in isolierten Umgebungen ausgeführt werden kann, was die Konsistenz und Zuverlässigkeit der Deployments erhöht.
+
+**Code-Qualitätssicherung:**
+
+- **Technologie:** SonarCloud
+- **Begründung:** SonarCloud wird zur Überwachung und Verbesserung der Codequalität verwendet. Es bietet statische Codeanalyse, entdeckt Schwachstellen, Sicherheitslücken und Code-Smells und hilft dabei, die Wartbarkeit und Sicherheit des Codes zu erhöhen. SonarCloud lässt sich nahtlos in GitHub Actions integrieren und ermöglicht eine kontinuierliche Codequalitätssicherung im CI/CD-Prozess.
 
 ### Top-Level-Zerlegung des Systems
 
@@ -115,7 +164,28 @@ Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesen
 
 ### Qualitätsanforderungen
 
+**Übertragbarkeit (Portability):**
+Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden, ist von entscheidender Bedeutung. Das Ziel ist es, eine effiziente Ressourcennutzung und plattformunabhängige Nutzbarkeit zu gewährleisten und externe Abhängigkeiten zu reduzieren. Um dies zu erreichen, werden End-to-End-Tests mit Playwright durchgeführt, die Nutzung von Docker zur Containerisierung implementiert, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit sicherzustellen, sowie Docker-Compose-Dateien verwendet, um die Services zu starten.
+
+**Benutzerfreundlichkeit (Usability):**
+Die Anwendung muss einfach und effizient zu bedienen sein, damit Benutzer das System problemlos verwenden und ihre Aufgaben schnell erledigen können. Ziele sind eine klar strukturierte Benutzeroberfläche und eine einfache Bedienbarkeit. Maßnahmen zur Erreichung dieser Ziele umfassen UI-Tests und End-to-End-Tests mit Playwright, um sicherzustellen, dass die Benutzeroberfläche intuitiv und benutzerfreundlich gestaltet ist.
+
+**Zuverlässigkeit (Reliability):**
+Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funktionieren und eine hohe Stabilität bei starker Nutzung zu gewährleisten. Um dies zu erreichen, werden Integrations- und umfassende Unit-Tests durchgeführt, um die Zuverlässigkeit und Stabilität des Systems zu überprüfen. Darüber hinaus werden Lasttests mit Artillery eingesetzt, um sicherzustellen, dass das System auch unter hoher Last stabil bleibt und die robuste Verarbeitung von Benutzereingaben gewährleistet ist.
+
 ### Organisatorische Entscheidungen
+
+**CI/CD-Pipeline mit GitHub Actions:**
+Ein zentraler Bestandteil dieser Entscheidungen ist die Einrichtung einer CI/CD-Pipeline mithilfe von GitHub Actions. Diese Pipeline automatisiert den gesamten Entwicklungsprozess von der Code-Einreichung bis zur Bereitstellung und ermöglicht eine kontinuierliche Integration und Auslieferung neuer Funktionen und Verbesserungen. Bei jedem Commit oder Pull-Request wird der Code automatisch gebaut und durch eine Reihe von Tests überprüft. Dazu gehören Unit-Tests, Integrationstests und End-to-End-Tests, die sicherstellen, dass die Anwendung sowohl funktional als auch stabil bleibt.
+
+**Testing-Strategien:**
+Speziell für das Frontend werden Tests durchgeführt, um sicherzustellen, dass die Benutzeroberfläche den Anforderungen entspricht und eine positive Nutzererfahrung bietet. Im Backend kommen ArchUnit-Tests zum Einsatz, um die Einhaltung von Architekturprinzipien zu gewährleisten. Zudem werden die Dockerfiles gelintet, um ihre syntaktische Korrektheit sicherzustellen. Ein weiteres wichtiges Tool in diesem Entwicklungsprozess ist SonarCloud. Es wird verwendet, um den Code kontinuierlich zu analysieren und sicherzustellen, dass er den Qualitätsstandards entspricht. Sicherheitslücken, Code-Smells und andere potenzielle Probleme werden so frühzeitig erkannt und behoben. Um die Anwendung auf ihre Leistungsfähigkeit und Stabilität unter hoher Last zu testen, werden automatisierte Lasttests mit Artillery durchgeführt. Diese Tests helfen dabei, die Belastbarkeit des Systems zu überprüfen und sicherzustellen, dass es auch bei intensiver Nutzung zuverlässig funktioniert.
+
+**Verwendung von Docker:**
+Docker wird zur Containerisierung und Verwaltung der Laufzeitumgebungen eingesetzt. Diese Entscheidung ermöglicht es, die Anwendung in isolierten Containern zu entwickeln und bereitzustellen, was die Konsistenz zwischen Entwicklungs-, Test- und Produktionsumgebungen sicherstellt. Docker-Compose wird verwendet, um die verschiedenen Services der Anwendung einfach zu starten und zu verwalten. Diese Vorgehensweise erleichtert die Einrichtung und den Betrieb der gesamten Entwicklungsumgebung und reduziert potenzielle Konflikte zwischen Abhängigkeiten. Nach Abschluss der Tests werden Docker-Container erstellt und in einer Registry gespeichert. Diese Container ermöglichen eine konsistente Bereitstellung der Anwendung in verschiedenen Umgebungen.
+
+**Versionskontrolle mit GitHub:**
+Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht eine effiziente Verwaltung des Codes, indem alle Änderungen in einem zentralen Repository nachverfolgt werden. Dies erleichtert die Sicherung der Entwicklungsfortschritte und ermöglicht bei Bedarf eine einfache Wiederherstellung früherer Versionen.
 
 ## Bausteinsicht
 
@@ -159,6 +229,14 @@ Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesen
 
 ## Qualitätsanforderung
 
+**Übertragbarkeit (Portability):**
+Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden, ist von entscheidender Bedeutung. Das Ziel ist es, eine effiziente Ressourcennutzung und plattformunabhängige Nutzbarkeit zu gewährleisten und externe Abhängigkeiten zu reduzieren. Um dies zu erreichen, werden End-to-End-Tests mit Playwright durchgeführt, die Nutzung von Docker zur Containerisierung implementiert, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit sicherzustellen, sowie Docker-Compose-Dateien verwendet, um die Services zu starten.
+
+**Benutzerfreundlichkeit (Usability):**
+Die Anwendung muss einfach und effizient zu bedienen sein, damit Benutzer das System problemlos verwenden und ihre Aufgaben schnell erledigen können. Ziele sind eine klar strukturierte Benutzeroberfläche und eine einfache Bedienbarkeit. Maßnahmen zur Erreichung dieser Ziele umfassen UI-Tests und End-to-End-Tests mit Playwright, um sicherzustellen, dass die Benutzeroberfläche intuitiv und benutzerfreundlich gestaltet ist.
+
+**Zuverlässigkeit (Reliability):**
+Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funktionieren und eine hohe Stabilität bei starker Nutzung zu gewährleisten. Um dies zu erreichen, werden Integrations- und umfassende Unit-Tests durchgeführt, um die Zuverlässigkeit und Stabilität des Systems zu überprüfen. Darüber hinaus werden Lasttests mit Artillery eingesetzt, um sicherzustellen, dass das System auch unter hoher Last stabil bleibt und die robuste Verarbeitung von Benutzereingaben gewährleistet ist.
 ### Qualitätsbaum
 
 ### Qualitätszenarien

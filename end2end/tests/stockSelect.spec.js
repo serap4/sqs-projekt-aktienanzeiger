@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-    await page.goto('http://localhost:3000/');
+    await page.goto('http://localhost:80/');
     await page.getByLabel('Wähle ein Datum').fill('2024-06-18');
     await page.locator('#options').selectOption('GOOGL');
     await page.getByRole('button', { name: 'Aktie Anzeigen!' }).click();
