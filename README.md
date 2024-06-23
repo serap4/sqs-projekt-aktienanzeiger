@@ -16,7 +16,7 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 | -------------- | -------------- | -------------- | -------------- |
 | Portability - Übertragbarkeit | Die Fähigkeit des Systems, in verschiedenen Umgebungen oder Plattformen betrieben zu werden.| - Effiziente Ressourcennutzung <br>- Plattformunabhängige Nutzbarkeit <br> Reduzierung externer Abhängigkeiten | - End-to-End-Tests mit Playwright <br>- Nutzung von Docker zur Containerisierung, um Laufzeitumgebungen zu isolieren und Plattformunabhängigkeit zu gewährleisten <br>- Docker-Compose-Datei zum Starten der Services |
 | Usability - Benutzerfreundlichkeit | Die Einfachheit und Effizienz, mit der Benutzer das System verwenden und ihre Aufgaben erledigen können. |- Klar strukturierte Benutzeroberfläche <br>- Einfache Bedienbarkeit| - UI-Tests <br>- End-to-End-Tests mit Playwright|
-| Reliability - Zuverlässigkeit | Die Fähigkeit des Systems, unter festgelegten Bedingungen korrekt zu funktionieren. | - Hohe Stabilität unter hoher Last <br>- Robuste Verarbeitung von Benutzereingaben| - Integrationstests <br>- Umfassende Abdeckung durch Unit-Tests <br>-Lasttests mit Artillery|
+| Reliability - Zuverlässigkeit | Die Fähigkeit des Systems, unter festgelegten Bedingungen korrekt zu funktionieren. | - Hohe Stabilität unter hoher Last <br>- Robuste Verarbeitung von Benutzereingaben|- Integrationstests <br>- Umfassende Abdeckung durch Unit-Tests <br>- Lasttests mit Artillery|
 
   
 ### Stakeholder
