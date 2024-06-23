@@ -103,7 +103,7 @@ Ziel dieser Aufgabe ist es, ein detailliertes und umfassendes Testkonzept für e
 
 ### Technischer- oder Verteilungskontext
 
-![Technischerkontext] https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/UML-Deployment-Diagramm.png
+![Technischerkontext](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/UML-Deployment-Diagramm.png)
 ## Lösungsstrategie
 
 Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesentlicher Technologieentscheidungen und Systemdesigns, die gezielt auf die spezifischen Anforderungen, Rahmenbedingungen und Qualitätsziele zugeschnitten sind. Diese strategischen Entscheidungen sind darauf ausgerichtet, die Anforderungen des Projekts optimal zu erfüllen und eine robuste, skalierbare und benutzerfreundliche Lösung zu gewährleisten.
