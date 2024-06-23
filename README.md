@@ -205,6 +205,7 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 ![Szenario 1](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Laufzeitdiagramm%201.PNG)
 
 ### Laufzeitszenario 2
+![Szenario 2](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Laufzeitdiagramm%202%20.PNG)
 
 ## Verteilungssicht
 
