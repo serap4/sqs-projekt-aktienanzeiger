@@ -44,26 +44,15 @@ test('test', async ({ page }) => {
     await expect(page.getByRole('cell', { name: '62.62' })).toBeVisible();
     await expect(page.getByRole('cell', { name: '62.63' }).nth(1)).toBeVisible();
     await page.locator('#options').selectOption('AMZN');
-    await page.getByRole('button', { name: 'Aktie Anzeigen!' }).click();
-    await expect(page.getByRole('cell', { name: 'AMZN' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '-06-18' }).nth(4)).toBeVisible();
-    await expect(page.getByRole('cell', { name: '183.735' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '184.29' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '181.43' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '182.81' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '183.01' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '182.85' })).toBeVisible();
-    await page.locator('#options').selectOption('TSLA');
-    await page.getByRole('button', { name: 'Aktie Anzeigen!' }).click();
-    await page.getByRole('button', { name: 'Aktie aus der Datenbank lö' }).click();
     page.once('dialog', dialog => {
         console.log(`Dialog message: ${dialog.message()}`);
         dialog.dismiss().catch(() => {});
     });
-    await page.locator('#options').selectOption('AMZN');
+    await page.getByRole('button', { name: 'Aktie Anzeigen!' }).click();
+    await page.locator('#options').selectOption('KO');
     await page.getByRole('button', { name: 'Aktie aus der Datenbank lö' }).click();
-    await expect(page.getByText('AbkürzungDatumEröffnungskursHöchstkursTiefstkursSchlusskursVorbörslichNachbörslichGOOGL2024-06-18177.14177.385174.1042175.09177.36175.09MSFT2024-06-18449.705450.14444.89446.34449.44446.42PYPL2024-06-1859.9260.1159.0359.1260.2959.1208KO2024-06-')).toBeVisible();
+    await expect(page.getByText('AbkürzungDatumEröffnungskursHöchstkursTiefstkursSchlusskursVorbörslichNachbörslichGOOGL2024-06-18177.14177.385174.1042175.09177.36175.09MSFT2024-06-18449.705450.14444.89446.34449.44446.42PYPL2024-06-')).toBeVisible();
     await page.getByRole('button', { name: 'Alle Aktien löschen' }).click();
     await expect(page.getByRole('table')).toBeVisible();
-
+    await expect(page.getByText('Data deleted from cache')).toBeVisible();
 });

@@ -219,6 +219,7 @@ jobs:
             npm ci
         - name: Install Browsers
           run:
+            npm install 
             npx playwright install --with-deps
 
         - name: Run Playwright Tests
