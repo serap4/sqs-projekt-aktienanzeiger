@@ -380,8 +380,18 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 ## Verteilungssicht
 
-### Infrastruktur Ebene 1
+### Infrastruktur 
+![Infrastruktur](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Infrastruktur.PNG)
 
+**Begründung**: Das System läuft in einer Container-Umgebung, die du++rch eine Docker-Compose-Datei verwaltet wird. Dies gewährleistet einfache Skalierbarkeit, Portabilität und Konsistenz. Durch Docker-Container werden die einzelnen Komponenten des Systems isoliert und verwaltet.
+
+**Isolation:** Jeder Dienst ist in einem dedizierten Container ausgeführt, was zu einer verstärkten Isolierung führt und damit die Stabilität sowie Sicherheit des Systems erhöht.
+
+**Portabilität:** Dank Docker läuft die Anwendung konsistent in verschiedenen Umgebungen, was die Portabilität zwischen Entwicklungs-, Test- und Produktionsumgebungen verbessert.
+
+**Skalierbarkeit:** Docker-Container ermöglichen eine einfache horizontale Skalierung des Systems durch das Hinzufügen zusätzlicher Container nach Bedarf.
+
+**Wiederholbarkeit:** Docker Compose ermöglicht eine einfache und reproduzierbare Bereitstellung der gesamten Systemumgebung.
 
 ## Docker-Compose-Datei
 
