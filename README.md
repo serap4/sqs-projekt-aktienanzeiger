@@ -306,11 +306,11 @@ Für die Versionskontrolle wird GitHub verwendet. Diese Plattform ermöglicht ei
 
 | Name           | Verantwortung                                                                                                                                                                         |
 |----------------|------------------------------------------------------------------------------------------------------------------------------------|
-| StockController |------------------------------------------------------------------------------------------------------------------------------------|
-| StockService|---------------------------------------------------------------------------------------------------------------------------------|
-| ApiCommunicationService|------------------------------------------------------------------------------------------------------------------------------|
-| CacheService|------------------------------------------------------------------------------------------------------------------------------------|
-| DataProcessing Service|---------------------------------------------------------------------------------------------------------------------------------|
+| StockController | Empfängt Anfragen vom Frontend und leitet diese an den StockService weiter. |
+| StockService| Verarbeitet die Anfragen des StockControllers, koordiniert die Kommunikation mit CacheService und ApiCommunicationService.|
+| ApiCommunicationService| Stellt die Verbindung zur externen Polygon API her, um Aktieninformationen abzurufen.| 
+| CacheService| Verwaltet das Caching der Aktieninformationen in der Redis-Datenbank und liefert Daten aus dem Cache.|
+| DataProcessing Service| Verarbeitet die Rohdaten, die von der Polygon API und dem CacheService geliefert werden, und bereitet sie für die Nutzung auf.|
 
 ### Whitebox React Frontend
 #### Übersichtsdiagramm
