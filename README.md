@@ -238,8 +238,23 @@ Die Anwendung muss einfach und effizient zu bedienen sein, damit Benutzer das Sy
 **Zuverlässigkeit (Reliability):**
 Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funktionieren und eine hohe Stabilität bei starker Nutzung zu gewährleisten. Um dies zu erreichen, werden Integrations- und umfassende Unit-Tests durchgeführt, um die Zuverlässigkeit und Stabilität des Systems zu überprüfen. Darüber hinaus werden Lasttests mit Artillery eingesetzt, um sicherzustellen, dass das System auch unter hoher Last stabil bleibt und die robuste Verarbeitung von Benutzereingaben gewährleistet ist.
 ### Qualitätsbaum
+![Qualitätsbaum](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/Qualit%C3%A4tsbaum.PNG)
 
 ### Qualitätszenarien
+| Attribut                  | Szenario                                | Maßnahme                                  |
+| ------------------------------- | ---------------------------------------| --------------------------------------------------- |
+| Portability - Übertragbarkeit | Nutzungsszenario: Die Anwendung wird in Docker-Containern betrieben und auf unterschiedlichen Plattformen ausgeführt.| Verwendung von Docker Compose für die Koordination und Docker für die Containerisierung. |
+|  | Anwendungsszenario: Unterstützung und Tests für neue Container-Umgebungen werden durchgeführt.| Isolierte Ausführungsumgebung|
+|  | Nutzungsszenario: Die Anwendung ist in verschiedenen Browsern einwandfrei funktionsfähig.| End-to-End-Tests mit Playwright |
+|  | Änderungsszenario: Unterstützung und Tests für kommende Browser-Versionen werden durchgeführt.| Regelmäßige Aktualisierungen und Prüfungen mit Playwright |
+| Usability - Benutzerfreundlichkeit | Nutzungsszenario: Anwender können Aktien leicht finden und die Suchergebnisse anzeigen lassen.| Intuitives UI-Design und benutzerfreundliche Navigation. Durchführung von End-to-End-Tests mit Playwright. |
+|  | Änderungsszenario: Optimierungen der Benutzeroberfläche werden stetig durchgeführt.| Einholung und Implementierung von Benutzerfeedback, Durchführung von UI-Tests.|
+| | Nutzungsszenario: Das System präsentiert relevante Aktieninformationen deutlich und übersichtlich.| Strukturierte Gestaltung, einheitliche Präsentation der Informationen. |
+| | Änderungsszenario: Neue Designanforderungen von Nutzern werden fortlaufend eingebunden.| Kontinuierliche Evaluierung und Anpassung an die Bedürfnisse der Nutzer.|
+| Reliability - Zuverlässigkeit| Nutzungsszenario: Zur Sicherstellung der Zuverlässigkeit wird das System gründlich geprüft.| End-to-End-Tests, Unit-Tests, Integrationstests, Lasttests |
+|  | Änderungsszenario: Das Testkonzept wird bei jeder Codeänderung regelmäßig überarbeitet.| Weitreichende Testabdeckung |
+|  | Nutzungsszenario: Das System bleibt auch bei hoher Auslastung zuverlässig und reagiert zügig.| Lasttests mit Artillery |
+|  | Änderungsszenario: Zusätzliche Anforderungen machen Anpassungen und erneute Prüfungen der Systemstabilität erforderlich.| Überarbeitung der Tests |
 
 ## Risiken und technische Schulden
 
