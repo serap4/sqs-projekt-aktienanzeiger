@@ -122,7 +122,45 @@ Das System ruft Aktieninformationen über die externe Polygon API im Spring Boot
 | DataProcessingService --> StockService | Datenkonvertierung	| Datenübertragung |
 | StockService --> StockControlller | Datenabfrage | Datenübertragung (Aktieninformation) |
 | StockService --> React Frontend |  HTTP Response | Aktualisierte Benutzeroberfläche |
+### Schnittstelle zum Spring Boot Backend
+Die Klasse `StockController` stellt die Schnittstelle zwischen dem Frontend und dem Backend dar. Sie verarbeitet die HTTP-Anfragen vom Frontend und leitet sie an den `StockService` weiter, der die Geschäftslogik ausführt und die Datenverarbeitung durchführt.
+Innerhalb von `StockController` werden die folgenden Endpunkte definiert:
 
+- `HTTP GET /stock/{symbol}/{date}`: Ruft die Aktieninformationen für das angegebene Symbol und Datum ab.
+- `HTTP GET /stock/delete/{symbol}/{date}`: Löscht die Aktieninformationen für das angegebene Symbol und Datum.
+
+Die unterschiedlichen Parameter sind wie folgt definiert:
+
+- `{symbol}`: Das Symbol der Aktie, für die die Informationen abgerufen oder gelöscht werden sollen.
+- `{date}`: Das Datum, für das die Aktieninformationen abgerufen oder gelöscht werden sollen.
+
+Die Klasse gibt dem Frontend verschiedene HTTP-Statuscodes zurück, die wie folgt definiert sind:
+
+- `200 OK`: Die Anfrage wurde erfolgreich bearbeitet.
+- `400 Bad Request`: Die Anfrage war fehlerhaft oder unvollständig.
+- `500 Internal Server Error`: Ein interner Serverfehler ist aufgetreten.
+- Rückgabe der Aktieninformationen im JSON-Format.
+
+### Externe Schnittstelle Polygon API
+Die Polygon API ist eine externe Datenquelle, die Echtzeit- und historische Aktieninformationen bereitstellt. Sie wird vom Backend verwendet, um aktuelle und genaue Aktieninformationen abzurufen. Die API bietet verschiedene Endpunkte, die es ermöglichen, Aktieninformationen für bestimmte Symbole und Daten abzurufen. Die Daten werden im JSON-Format übermittelt und enthalten Informationen wie den Eröffnungs- und Schlusskurs, das Handelsvolumen und andere relevante Marktdaten.
+Die Klasse `ApiCommunicationService` ist für die Kommunikation mit der Polygon API verantwortlich. Sie initiiert HTTP-Anfragen an die API-Endpunkte und verarbeitet die empfangenen Daten. Die Klasse stellt sicher, dass die Daten korrekt abgerufen und verarbeitet werden und dass die Aktieninformationen in einem geeigneten Format an das Backend übermittelt werden.
+Polygon API besitzt folgende Endpunkte:
+- `HTTP GET https://api.polygon.io/v1/open-close/{symbol}/{date}?adjusted=true&apiKey=apikey`: Endpunkt zum Abrufen der Aktieninformationen für das angegebene Symbol und Datum.
+
+Die parameter sind wie folgt definiert:
+- `{symbol}`: Das Symbol der Aktie, für die die Informationen abgerufen werden sollen.
+- `{date}`: Das Datum, für das die Aktieninformationen abgerufen werden sollen.
+- `adjusted=true`: Gibt an, ob die Daten angepasst werden sollen. Dieser Wert ist standardmäßig auf `true` gesetzt, damit die Daten bereinigt und korrigiert werden von der API.
+- `apiKey`: Der API-Schlüssel, der für die Authentifizierung bei der Polygon API verwendet wird.
+- Rückgabe der Aktieninformationen im JSON-Format.
+
+Die Dokumentation der Polygon API ist unter folgendem Link verfügbar: https://polygon.io/docs/get_v1_open_close__symbol___date__anchor
+
+### Mapping fachlicher auf technische Schnittstellen
+
+- Fachliche Schnittstelle: Benutzereingabe im Frontend  -> Technische Schnittstelle: HTTP Request an StockController
+- Fachliche Rückmeldung: Anzeige der Aktieninformationen im Frontend -> Technische Rückmeldung: HTTP Response von StockController
+- 
 
 ## Lösungsstrategie
 
