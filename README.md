@@ -441,7 +441,7 @@ Die Images für das Front- und Backend werden aus der GitHub-Registry des Projek
 ## Querschnittliche Konzepte
 
 ### Backend UML-Klassendiagramm
-
+![Klassendiagramm](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/Bilder/klassendiagramm.png)
 
 ### Github Actions CI/CD Pipeline
 [Github-Actions-Datei](https://github.com/serap4/sqs-projekt-aktienanzeiger/blob/master/.github/workflows/main-pipeline.yml)
