@@ -1,15 +1,16 @@
 # Verwende ein Basis-Image mit Java
 FROM openjdk:17-jdk-slim
 
+# Installiere Maven
+RUN apt-get update && apt-get install -y maven
+
 # Setze das Arbeitsverzeichnis
 WORKDIR /app
 
-# Kopiere pom.xml und Maven Wrapper Skript
+# Kopiere pom.xml und Maven Skript
 COPY pom.xml ./
-COPY mvnw ./
-COPY .mvn .mvn
 
-# Installiere Maven Wrapper und gehe offline
+# Installiere Maven Abhängigkeiten und gehe offline
 RUN mvn dependency:go-offline
 
 # Kopiere den restlichen Code
