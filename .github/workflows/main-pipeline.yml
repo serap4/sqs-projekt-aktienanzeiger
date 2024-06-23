@@ -125,12 +125,15 @@ jobs:
         run: |
           cd frontend
           npx sonar-scanner \
-          -Dsonar.projectKey=sqs-projekt_frontend \
-          -Dsonar.organization=sqs-projekt \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.sources=src \
-          -Dsonar.tests=src \
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.projectKey=sqs-projekt_frontend \
+            -Dsonar.organization=sqs-projekt \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.sources=src \
+            -Dsonar.exclusions=src/**/__tests__/**,src/**/tests/** \
+            -Dsonar.tests=tests \
+            -Dsonar.test.inclusions=tests/**/*.test.js,tests/**/*.spec.js \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
 
   docker-container-build-push:
     needs: [backend-frontend-build-test, sonarcloud-analysis]
