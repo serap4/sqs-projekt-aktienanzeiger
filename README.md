@@ -109,13 +109,49 @@ Die grundlegende Entwurfsstrategie dieses Projekts basiert auf einer Reihe wesen
 
 ### Technologieentscheidungen
 
--	**Backend:** Das Backend wird in Java mit Spring Boot entwickelt, was eine robuste und skalierbare Architektur ermöglicht. Diese Entscheidung beruht auf der Stabilität und Flexibilität, die Spring Boot bietet, sowie der breiten Unterstützung in der Entwicklergemeinschaft.
-  
-- **Frontend:** Das Frontend wird mit React umgesetzt. Diese JavaScript-Bibliothek wurde aufgrund ihrer Fähigkeit gewählt, dynamische und interaktive Benutzeroberflächen zu erstellen. React ermöglicht eine modulare und wiederverwendbare Komponentenarchitektur, die eine hohe Performance durch virtuelle DOM (=Document Object Model)-Funktionen bietet.  
+**Backend:**
 
-- **Datenbank:** Redis wird als In-Memory-Datenbank eingesetzt, die für ihre hohe Leistung und Skalierbarkeit bekannt ist. Diese Entscheidung unterstützt die schnelle Datenverarbeitung und effizientes Caching, was die Antwortzeiten reduziert.
+- **Technologie:** Java mit Spring Boot
+- **Begründung:** Spring Boot bietet eine robuste und skalierbare Architektur, die schnelle Entwicklung und einfache Integration mit verschiedenen Datenbanken und externen APIs ermöglicht. Es hat eine breite Unterstützung in der Entwicklergemeinschaft und umfangreiche Dokumentation.
   
-- **Externe API:** Die benötigten Aktieninformationen werden von der Polygon.io API abgerufen, die umfassende und aktuelle Marktdaten bereitstellt.
+**Frontend:**
+
+- **Technologie:** React
+- **Begründung:** React wurde gewählt, weil es die Erstellung dynamischer und interaktiver Benutzeroberflächen ermöglicht. Es unterstützt eine modulare und wiederverwendbare Komponentenarchitektur und bietet eine hohe Performance durch virtuelle DOM-Funktionen. React ist weit verbreitet und hat eine starke Community-Unterstützung, was die langfristige Wartung und Erweiterung der Anwendung erleichtert.
+
+**Datenbank:**
+
+- **Technologie:** Redis
+- **Begründung:** Redis ist eine In-Memory-Datenbank, die für ihre hohe Leistung und Skalierbarkeit bekannt ist. Sie unterstützt schnelle Datenzugriffe und effizientes Caching, was die Antwortzeiten der Anwendung reduziert. Redis ist ideal für Anwendungen, die schnelle Verarbeitungsgeschwindigkeiten erfordern und bietet zudem umfangreiche Funktionen zur Datenpersistenz.
+
+**Externe API:**
+
+- **Technologie:** Polygon.io API
+- **Begründung:** Die Polygon.io API bietet umfassende und aktuelle Marktdaten, die für die Funktionalität der Aktienanzeiger-Webanwendung unerlässlich sind. Sie ist zuverlässig, gut dokumentiert und ermöglicht die einfache Integration von Echtzeit-Marktdaten.
+
+
+**Versionskontrolle:**
+
+- **Technologie:** GitHub
+- **Begründung:** GitHub wird für die Versionskontrolle verwendet, da es eine weit verbreitete und bewährte Plattform ist. Es unterstützt kollaborative Entwicklung, ermöglicht einfaches Verwalten von Code-Repositories und bietet umfassende Integrationen mit anderen Tools und Diensten.
+
+**CI/CD:**
+
+- **Technologie:** GitHub Actions
+- **Begründung:** GitHub Actions wird für die Einrichtung einer CI/CD-Pipeline verwendet, um automatisiertes Testing und Deployment zu gewährleisten. Dies ermöglicht eine kontinuierliche Integration und Bereitstellung, was die Qualität und Stabilität der Anwendung erhöht.
+
+**Containerisierung:**
+
+- **Technologie:** Docker
+- **Begründung:** Docker wird zur Containerisierung und Verwaltung der Laufzeitumgebungen eingesetzt. Es stellt sicher, dass die Anwendung plattformunabhängig und in isolierten Umgebungen ausgeführt werden kann, was die Konsistenz und Zuverlässigkeit der Deployments erhöht.
+
+**Code-Qualitätssicherung:**
+
+**Technologie:** SonarCloud
+**Begründung:** SonarCloud wird zur Überwachung und Verbesserung der Codequalität verwendet. Es bietet statische Codeanalyse, entdeckt Schwachstellen, Sicherheitslücken und Code-Smells und hilft dabei, die Wartbarkeit und Sicherheit des Codes zu erhöhen. SonarCloud lässt sich nahtlos in GitHub Actions integrieren und ermöglicht eine kontinuierliche Codequalitätssicherung im CI/CD-Prozess.
+
+
+
 
 ### Top-Level-Zerlegung des Systems
 
