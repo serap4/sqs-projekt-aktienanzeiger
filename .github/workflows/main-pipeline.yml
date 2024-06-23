@@ -192,3 +192,37 @@ jobs:
 
       - name: Run Artillery test
         run: artillery run ./artillery-test/artillery.yml
+
+  run-playwright-end2end:
+    runs-on: ubuntu-latest
+
+    needs: docker-container-build-push
+    steps:
+        - uses: actions/checkout@v3
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v1
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Start Docker Container
+          run: docker-compose -f ./docker-compose.yml up -d
+
+        - name: Wait for services to start
+          run: sleep 30
+
+        - name: Build playwright
+          run: |
+            cd tests
+            npm ci
+        - name: Install Browsers
+          run:
+            npx playwright install --with-deps
+
+        - name: Run Playwright Tests
+          run: |
+            cd tests
+            cd e2e
+            npx playwright test --config playwright.config.js
