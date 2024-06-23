@@ -1,5 +1,14 @@
 # Aktienanzeiger
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sqs-projekt_backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=sqs-projekt_backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sqs-projekt_backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=sqs-projekt_backend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sqs-projekt_backend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=sqs-projekt_backend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sqs-projekt_backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=sqs-projekt_backend)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=sqs-projekt_backend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=sqs-projekt_backend)
+
+
+
+
 ## Einführung und Ziele
 
 Der Zweck der Aktienanzeiger-Webanwendung ist es, Benutzern täglich aktuelle Aktienkurse und umfassende Unternehmensinformationen wie den Marktwert bereitzustellen. Über eine benutzerfreundliche Weboberfläche können die Benutzer gezielt verschiedene Aktien auswählen und die relevanten Daten in einer übersichtlichen Tabelle anzeigen lassen. Zur Steigerung der Effizienz und Reduzierung der Antwortzeiten nutzt die Anwendung eine intelligente Caching-Strategie. Das Backend der Anwendung ist in Java unter Verwendung des Spring Boot Frameworks entwickelt, was eine robuste und skalierbare Backend-Architektur ermöglicht. Das Frontend basiert auf React, einer modernen JavaScript-Bibliothek, die für eine dynamische und interaktive Benutzererfahrung sorgt. Als Datenbank wird Redis verwendet, bekannt für seine hohe Leistung und Fähigkeit, häufig abgefragte Daten zu cachen. Die benötigten Aktieninformationen und Marktdaten werden von der Polygon.io API (https://polygon.io) abgerufen und in der Redis-Datenbank zwischengespeichert, um wiederholte Anfragen effizient zu bearbeiten.
