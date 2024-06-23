@@ -258,6 +258,17 @@ Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funk
 
 ## Risiken und technische Schulden
 
+| Risiko/Technische Schuld | Beschreibung      | 	Maßnahme zur Risikovermeidung/Risikominimierung/Abbau der technischen Schuld	      | Priorität      |
+| -------------- | -------------- | -------------- | -------------- |
+| Skalierungsprobleme | Herausforderungen bei der Handhabung vieler gleichzeitiger Benutzer während Marktspitzen, da das Spring Boot Backend unter hoher Last an seine Grenzen stoßen könnte.| Regelmäßig Lasttests durchführen, Skalierungstechniken implementieren und horizontales Skalieren unterstützen.| Hoch |
+| Sicherheitsschwachstellen | Mögliche Sicherheitslücken im Code, die zu Datenverlust oder unbefugtem Zugriff führen könnten. | Regelmäßige Sicherheitsprüfungen, Implementierung von Authentifizierung und Autorisierung, Einsatz von Verschlüsselungstechniken| Hoch |
+| Unzureichende Testabdeckung | Fehlende oder unvollständige Tests, die die Wahrscheinlichkeit von unentdeckten Fehlern erhöhen.| Erhöhung der Testabdeckung durch Unit-, Integrations- und End-to-End-Tests | Hoch |
+| Performance-Probleme	 | Langsame Reaktionszeiten der Anwendung unter hoher Last oder bei komplexen Anfragen. | Implementierung von Performance-Monitoring, Optimierung der Datenbankabfragen, Einsatz von Caching-Techniken | Hoch |
+| Abhängigkeit von Drittanbieter-APIs | Risiken durch Änderungen oder Ausfälle der externen APIs, die die Anwendung nutzt. |Implementierung von Fallback-Mechanismen, regelmäßige Überwachung der API-Verfügbarkeit| Hoch |
+| Docker-Komplexität | Die Komplexität der Docker-Umgebungen kann zu Konfigurationsfehlern und Schwierigkeiten bei der Verwaltung führen. | Bereitstellung umfassender Dokumentation und Schulungen, Einsatz von Best Practices für Docker-Container und Orchestrierung mit Docker Compose| Mittel |
+| Wartungsaufwand | Erhöhter Wartungsaufwand durch ständige Updates und Modifikationen der Abhängigkeiten sowie Dockerfiles. | Automatisierung von Wartungsprozessen, regelmäßige Inspektion und Erneuerung der Abhängigkeiten. | Mittel |
+
+
 ## Glossar
 | Begriff                         | Beschreibung                           | 
 | ------------------------------- | ---------------------------------------|
@@ -265,6 +276,7 @@ Das System muss in der Lage sein, unter festgelegten Bedingungen korrekt zu funk
 | React                           |                                        |
 | Redis                           |                                        |
 | GitHub Actions                  |                                        |
+| GitHub                          |                                        |
 | SonarCloud                      |                                        |
 | CI/CD-Pipeline                  |                                        |
 | Caching                         |                                        |
